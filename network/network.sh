@@ -56,9 +56,9 @@ generateFiles() {
 networkUp() {
     generateFiles
 
-    IMAGE_TAG=$IMAGE_TAG docker-compose -f $COMPOSE_FILE up -d orderer partya partyb partyc cli ca-partya ca-partyb ca-partyc
+    IMAGE_TAG=$IMAGE_TAG docker-compose -f $COMPOSE_FILE up -d orderer shipper transporter warehouse consignee
 
-    docker exec cli sh scripts/script.sh
+    # docker exec cli sh scripts/script.sh
 }
 
 networkDown() {
@@ -92,5 +92,5 @@ elif [ "$MODE" == "generate" ]; then
 elif [ "$MODE" == "clean" ]; then
     clean
 else
-    echo "up or down, make a choice"
+    echo "up / down / generate / clean"
 fi

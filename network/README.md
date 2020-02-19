@@ -11,3 +11,10 @@
 |    仓储方    |  warehouse  |
 |    收货方    |  consignee  |
 
+
+## 网络搭建
+```shell
+./network.sh generate # 生成证书文件、初始块文件、通道配置文件
+./network.sh up # 启动 orderer 各个组织的 peers 的 docker container
+
+```

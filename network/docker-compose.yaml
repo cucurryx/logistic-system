@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+    orderer:
+        extends: 
+            file: base/docker-compose-base.yaml
+            service: orderer
+        container_name: orderer
+
+    shipper:
+        extends: 
+            file: base/docker-compose-base.yaml
+            service: shipper
+        container_name: shipper
+
+    transporter:
+        extends: 
+            file: base/docker-compose-base.yaml
+            service: transporter
+        container_name: transporter
+
+    warehouse:
+        extends:
+            file: base/docker-compose-base.yaml
+            service: warehouse
+        container_name: warehouse
+
+    consignee:
+        extends: 
+            file: base/docker-compose-base.yaml
+            service: consignee
+        container_name: consignee
