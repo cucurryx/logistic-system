@@ -35,8 +35,8 @@ func (c *LogisticContract) CreateOrder(ctx Context, requestData []byte) error {
 	}
 
 	// this order shouldn't exist in world state
-	if _, err := ctx.GetStub().GetState(string(request.ID)); err == nil {
-		return fmt.Errorf("orderer with goods id: %d has been created", request.ID)
+	if _, err := ctx.GetStub().GetState(request.ID); err == nil {
+		return fmt.Errorf("orderer with goods id: %s has been created", request.ID)
 	}
 
 	var goodsState GoodsState
@@ -47,7 +47,7 @@ func (c *LogisticContract) CreateOrder(ctx Context, requestData []byte) error {
 	if err != nil {
 		return fmt.Errorf("json marshal failed, err: %+v", err)
 	}
-	return ctx.GetStub().PutState(string(request.ID), data)
+	return ctx.GetStub().PutState(request.ID, data)
 }
 
 // 运输信息录入接口
@@ -57,7 +57,7 @@ func (c *LogisticContract) PutTransportInfo(ctx Context, requestData []byte) err
 		return fmt.Errorf("put transport info failed when unmarshal request data, err: %+v", err)
 	}
 
-	data, err := ctx.GetStub().GetState(string(request.GoodsID))
+	data, err := ctx.GetStub().GetState(request.GoodsID)
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func (c *LogisticContract) PutTransportInfo(ctx Context, requestData []byte) err
 	if err != nil {
 		return fmt.Errorf("json marshal failed, err: %+v", err)
 	}
-	return ctx.GetStub().PutState(string(request.GoodsID), data)
+	return ctx.GetStub().PutState(request.GoodsID, data)
 }
 
 // 仓储信息录入接口
@@ -88,7 +88,7 @@ func (c *LogisticContract) PutWarehouseInfo(ctx Context, requestData []byte) err
 		return fmt.Errorf("put warehouse info failed when unmarshal request data, err: %+v", err)
 	}
 
-	data, err := ctx.GetStub().GetState(string(request.GoodsID))
+	data, err := ctx.GetStub().GetState(request.GoodsID)
 	if err != nil {
 		return err
 	}
@@ -109,12 +109,12 @@ func (c *LogisticContract) PutWarehouseInfo(ctx Context, requestData []byte) err
 	if err != nil {
 		return fmt.Errorf("json marshal failed, err: %+v", err)
 	}
-	return ctx.GetStub().PutState(string(request.GoodsID), data)
+	return ctx.GetStub().PutState(request.GoodsID, data)
 }
 
 // 确认收货接口
-func (c *LogisticContract) ReceiveGoods(ctx Context, id uint64) error {
-	data, err := ctx.GetStub().GetState(string(id))
+func (c *LogisticContract) ReceiveGoods(ctx Context, id string) error {
+	data, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return err
 	}
@@ -126,10 +126,7 @@ func (c *LogisticContract) ReceiveGoods(ctx Context, id uint64) error {
 	if goodsState.State != TRANSPORTING {
 		return fmt.Errorf("can't receive goods because goods' state is not TRANSPORTING")
 	}
-	goodsState.State = RECEIVED
-	goodsState.TransportState = nil
-	goodsState.OrderCreateState = nil
-	goodsState.WarehouseState = nil
+	goodsState.SetReceived()
 
 	data, err = json.Marshal(goodsState)
 	if err != nil {
@@ -139,23 +136,21 @@ func (c *LogisticContract) ReceiveGoods(ctx Context, id uint64) error {
 }
 
 // 获取物件当前状态
-func (c *LogisticContract) GetGoodsInfo(ctx Context, id uint64) (*GoodsState, error) {
-	data, err := ctx.GetStub().GetState(string(id))
+func (c *LogisticContract) GetGoodsInfo(ctx Context, id string) (*GoodsState, error) {
+	data, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return nil, err
 	}
-
 	var goodsState GoodsState
 	if err := json.Unmarshal(data, &goodsState); err != nil {
 		return nil, err
 	}
-
 	return &goodsState, nil
 }
 
 // 获取物件transaction记录
-func (c *LogisticContract) GetGoodsHistory(ctx Context, id uint64) (*HistoryResponse, error) {
-	histories, err := ctx.GetStub().GetHistoryForKey(string(id))
+func (c *LogisticContract) GetGoodsHistory(ctx Context, id string) (*HistoryResponse, error) {
+	histories, err := ctx.GetStub().GetHistoryForKey(id)
 	if err != nil {
 		return nil, err
 	}

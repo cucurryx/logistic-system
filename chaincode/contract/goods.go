@@ -17,9 +17,9 @@ type GoodsState struct {
 }
 
 type OrderCreate struct {
-	ID          uint64 `json:"id"`          // 物品id，64位整数
-	Client      uint64 `json:"client"`      // 发货方名称
-	Receiver    uint64 `json:"receiver"`    // 收货方名称
+	ID          string `json:"id"`          // 物品id，64位整数
+	Client      string `json:"client"`      // 发货方名称
+	Receiver    string `json:"receiver"`    // 收货方名称
 	Name        string `json:"name"`        // 物品名称
 	Source      string `json:"source"`      // 出发地
 	Destination string `json:"destination"` // 目的地
@@ -27,12 +27,12 @@ type OrderCreate struct {
 }
 
 type TransportInfo struct {
-	GoodsID   uint64     `json:"goods_id"`
+	GoodsID   string     `json:"goods_id"`
 	Transport *Transport `json:"transport"` // 物品经历的运输，Transport结构体中有详细定义
 }
 
 type WarehouseInfo struct {
-	GoodsID         uint64           `json:"goods_id"`
+	GoodsID         string           `json:"goods_id"`
 	StoragePosition *StoragePosition `json:"storage_position"` // 仓储位置，该结构体具体定义在下面
 }
 
@@ -45,11 +45,11 @@ type Transport struct {
 }
 
 type StoragePosition struct {
-	WarehouseID   uint64 `json:"warehouse_id"`   // 仓库id
-	WarehouseName uint64 `json:"warehouse_name"` // 仓库名称
-	ZoneID        uint64 `json:"zone_id"`        // 仓库区域id
-	SelfID        uint64 `json:"self_id"`        // 货架id
-	Position      uint64 `json:"position"`       // 具体位置标号
+	WarehouseID   string `json:"warehouse_id"`   // 仓库id
+	WarehouseName string `json:"warehouse_name"` // 仓库名称
+	ZoneID        string `json:"zone_id"`        // 仓库区域id
+	SelfID        string `json:"self_id"`        // 货架id
+	Position      string `json:"position"`       // 具体位置标号
 }
 
 func (s *GoodsState) SetOrderCreated(create *OrderCreate) {
