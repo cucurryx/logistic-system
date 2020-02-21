@@ -11,13 +11,13 @@ Organizations:
 
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
     # in production but may be used as a template for other definitions
-    - &orderer
+    - &OrdererOrg
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: orderer
+        Name: OrdererOrg
 
         # ID to load the MSP definition as
-        ID: orderer
+        ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
         MSPDir: crypto-config/ordererOrganizations/logistic.com/msp
@@ -28,21 +28,21 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('orderer.member')"
+                Rule: "OR('OrdererMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('orderer.member')"
+                Rule: "OR('OrdererMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('orderer.admin')"
+                Rule: "OR('OrdererMSP.admin')"
 
-    - &shipper
+    - &Shipper
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: shipper
+        Name: Shipper
 
         # ID to load the MSP definition as
-        ID: shipper
+        ID: ShipperMSP
 
         MSPDir: crypto-config/peerOrganizations/shipper.logistic.com/msp
 
@@ -52,32 +52,32 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: OR('shipper.admin', 'shipper.peer', 'shipper.client')
+                Rule: OR('ShipperMSP.admin', 'ShipperMSP.peer', 'ShipperMSP.client')
             Writers:
                 Type: Signature
-                Rule: OR('shipper.admin', 'shipper.client')
+                Rule: OR('ShipperMSP.admin', 'ShipperMSP.client')
             Admins:
                 Type: Signature
-                Rule: OR('shipper.admin')
+                Rule: OR('ShipperMSP.admin')
             Endorsement:
                 Type: Signature
-                Rule: "OR('shipper.peer')"
+                Rule: "OR('ShipperMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: logistic-shipper
+            - Host: peer0.shipper.logistic.com
               Port: 7051
 
-    - &transporter
+    - &Transporter
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: transporter
+        Name: Transporter
 
         # ID to load the MSP definition as
-        ID: transporter
+        ID: TransporterMSP
 
         MSPDir: crypto-config/peerOrganizations/transporter.logistic.com/msp
 
@@ -87,32 +87,32 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: OR('transporter.admin', 'transporter.peer', 'transporter.client')
+                Rule: OR('TransporterMSP.admin', 'TransporterMSP.peer', 'TransporterMSP.client')
             Writers:
                 Type: Signature
-                Rule: OR('transporter.admin', 'transporter.client')
+                Rule: OR('TransporterMSP.admin', 'TransporterMSP.client')
             Admins:
                 Type: Signature
-                Rule: OR('transporter.admin')
+                Rule: OR('TransporterMSP.admin')
             Endorsement:
                 Type: Signature
-                Rule: "OR('transporter.peer')"
+                Rule: "OR('TransporterMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: logistic-transporter
-              Port: 7051
+            - Host: peer0.transporter.logistic.com
+              Port: 8051
 
-    - &warehouse
+    - &Warehouse
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: warehouse
+        Name: Warehouse
 
         # ID to load the MSP definition as
-        ID: warehouse
+        ID: WarehouseMSP
 
         MSPDir: crypto-config/peerOrganizations/warehouse.logistic.com/msp
 
@@ -122,32 +122,32 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('warehouse.admin', 'warehouse.peer', 'warehouse.client')"
+                Rule: "OR('WarehouseMSP.admin', 'WarehouseMSP.peer', 'WarehouseMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('warehouse.admin', 'warehouse.client')"
+                Rule: "OR('WarehouseMSP.admin', 'WarehouseMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('warehouse.admin')"
+                Rule: "OR('WarehouseMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('warehouse.peer')"
+                Rule: "OR('WarehouseMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: logistic-warehouse
-              Port: 7051
+            - Host: peer0.warehouse.logistic.com
+              Port: 9051
 
-    - &consignee
+    - &Consignee
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: consignee
+        Name: Consignee
 
         # ID to load the MSP definition as
-        ID: consignee
+        ID: ConsigneeMSP
 
         MSPDir: crypto-config/peerOrganizations/consignee.logistic.com/msp
 
@@ -157,24 +157,24 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('consignee.admin', 'consignee.peer', 'consignee.client')"
+                Rule: "OR('ConsigneeMSP.admin', 'ConsigneeMSP.peer', 'ConsigneeMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('consignee.admin', 'consignee.client')"
+                Rule: "OR('ConsigneeMSP.admin', 'ConsigneeMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('consignee.admin')"
+                Rule: "OR('ConsigneeMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('consignee.peer')"
+                Rule: "OR('ConsigneeMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: logistic-consignee
-              Port: 7051
+            - Host: peer0.consignee.logistic.com
+              Port: 10051
 
 ################################################################################
 #
@@ -282,7 +282,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - logistic-orderer:7050
+        - orderer.logistic.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -373,10 +373,10 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *shipper
-                - *transporter
-                - *warehouse
-                - *consignee
+                - *Shipper
+                - *Transporter
+                - *Warehouse
+                - *Consignee
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -396,17 +396,17 @@ Profiles:
             Addresses:
                 - orderer.logistic.com:7050
             Organizations:
-                - *orderer
+                - *OrdererOrg
             Capabilities:
                 <<: *OrdererCapabilities
         Application:
             <<: *ApplicationDefaults
             Organizations:
-            - <<: *orderer
+            - <<: *OrdererOrg
         Consortiums:
             SampleConsortium:
                 Organizations:
-                - *shipper
-                - *transporter
-                - *warehouse
-                - *consignee
+                - *Shipper
+                - *Transporter
+                - *Warehouse
+                - *Consignee

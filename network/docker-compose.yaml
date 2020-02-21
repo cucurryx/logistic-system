@@ -1,32 +1,90 @@
-version: '2'
+version: "2"
+
+
+volumes:
+  orderer.logistic.com:
+  peer0.shipper.logistic.com:
+  peer0.transporter.logistic.com:
+  peer0.warehouse.logistic.com:
+  peer0.consignee.logistic.com:
+
+networks: 
+    loginet:
 
 services:
-    orderer:
-        extends: 
-            file: base/docker-compose-base.yaml
-            service: orderer
-        container_name: orderer
-
-    shipper:
-        extends: 
-            file: base/docker-compose-base.yaml
-            service: shipper
-        container_name: shipper
-
-    transporter:
-        extends: 
-            file: base/docker-compose-base.yaml
-            service: transporter
-        container_name: transporter
-
-    warehouse:
+    orderer.logistic.com:
         extends:
             file: base/docker-compose-base.yaml
-            service: warehouse
-        container_name: warehouse
+            service: orderer.logistic.com
+        container_name: orderer.logistic.com
+        networks: 
+            - loginet
 
-    consignee:
-        extends: 
+    peer0.shipper.logistic.com:
+        extends:
             file: base/docker-compose-base.yaml
-            service: consignee
-        container_name: consignee
+            service: peer0.shipper.logistic.com
+        container_name: peer0.shipper.logistic.com
+        networks: 
+            - loginet
+
+    peer0.transporter.logistic.com:
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.transporter.logistic.com
+        container_name: peer0.transporter.logistic.com
+        networks: 
+            - loginet
+
+    peer0.warehouse.logistic.com:
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.warehouse.logistic.com
+        container_name: peer0.warehouse.logistic.com
+        networks: 
+            - loginet
+
+    peer0.consignee.logistic.com:
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.consignee.logistic.com
+        container_name: peer0.consignee.logistic.com
+        networks: 
+            - loginet
+
+    cli:
+        container_name: cli
+        image: hyperledger/fabric-tools:$IMAGE_TAG
+        tty: true
+        stdin_open: true
+        environment:
+            - GOPROXY=https://goproxy.cn
+            - GOPATH=/opt/gopath
+            - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+            # - FABRIC_LOGGING_SPEC=DEBUG
+            - FABRIC_LOGGING_SPEC=INFO
+            - CORE_PEER_ID=cli
+            - CORE_PEER_ADDRESS=peer0.shipper.logistic.com:7051
+            - CORE_PEER_LOCALMSPID=ShipperMSP
+            # tls
+            - CORE_PEER_TLS_ENABLED=true
+            - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shipper.logistic.com/peers/peer0.shipper.logistic.com/tls/server.crt
+            - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shipper.logistic.com/peers/peer0.shipper.logistic.com/tls/server.key
+            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shipper.logistic.com/peers/peer0.shipper.logistic.com/tls/ca.crt
+            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shipper.logistic.com/users/Admin@shipper.logistic.com/msp
+        working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+        command: /bin/bash
+        volumes:
+            - /var/run/:/host/var/run/
+            - ./../chaincode/:/opt/gopath/src/chaincode
+            - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+            - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+            - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+        depends_on:
+            - orderer.logistic.com
+            - peer0.shipper.logistic.com
+            - peer0.transporter.logistic.com
+            - peer0.warehouse.logistic.com
+            - peer0.consignee.logistic.com
+        networks: 
+            - loginet

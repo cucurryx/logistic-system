@@ -8,16 +8,11 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   - Name: Orderer
     Domain: logistic.com
-    EnableNodeOUs: true
-
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
     Specs:
       - Hostname: orderer
-        SANS:
-         - "localhost"
-         - "127.0.0.1"
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
@@ -28,9 +23,6 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   - Name: Shipper
     Domain: shipper.logistic.com
-    SANS:
-      - "localhost"
-      - "127.0.0.1"
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -42,9 +34,6 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   - Name: Transporter
     Domain: transporter.logistic.com
-    SANS:
-      - "localhost"
-      - "127.0.0.1"
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -53,9 +42,6 @@ PeerOrgs:
 
   - Name: Warehouse
     Domain: warehouse.logistic.com
-    SANS:
-      - "localhost"
-      - "127.0.0.1"
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -64,9 +50,6 @@ PeerOrgs:
 
   - Name: Consignee
     Domain: consignee.logistic.com
-    SANS:
-      - "localhost"
-      - "127.0.0.1"
     EnableNodeOUs: true
     Template:
       Count: 1

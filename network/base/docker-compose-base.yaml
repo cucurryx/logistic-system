@@ -1,8 +1,8 @@
 version: "2"
 
 services:
-    orderer:
-        container_name: orderer
+    orderer.logistic.com:
+        container_name: orderer.logistic.com
         extends:
             file: peer-base.yaml
             service: orderer-base
@@ -13,18 +13,19 @@ services:
         ports:
             - 7050:7050
 
-    shipper:
-        container_name: shipper
+    peer0.shipper.logistic.com:
+        container_name: peer0.shipper.logistic.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=shipper
-            - CORE_PEER_ADDRESS=shipper:7051
+            - CORE_PEER_ID=peer0.shipper.logistic.com
+            - CORE_PEER_ADDRESS=peer0.shipper.logistic.com:7051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-            - CORE_PEER_CHAINCODEADDRESS=shipper:7052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.logistic.com:7052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-            - CORE_PEER_LOCALMSPID=transporter
+            - CORE_PEER_LOCALMSPID=ShipperMSP
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.logistic.com:7051
         volumes:
             - /var/run/:/host/var/run/
             - ../crypto-config/peerOrganizations/shipper.logistic.com/peers/peer0.shipper.logistic.com/msp:/etc/hyperledger/fabric/msp
@@ -32,18 +33,19 @@ services:
         ports:
             - 7051:7051
 
-    transporter:
-        container_name: transporter
+    peer0.transporter.logistic.com:
+        container_name: peer0.transporter.logistic.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=transporter
-            - CORE_PEER_ADDRESS=transporter:8051
+            - CORE_PEER_ID=peer0.transporter.logistic.com
+            - CORE_PEER_ADDRESS=peer0.transporter.logistic.com:8051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-            - CORE_PEER_CHAINCODEADDRESS=transporter:8052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.transporter.logistic.com:8052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
-            - CORE_PEER_LOCALMSPID=transporter
+            - CORE_PEER_LOCALMSPID=TransporterMSP
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.transporter.logistic.com:8051
         volumes:
             - /var/run/:/host/var/run/
             - ../crypto-config/peerOrganizations/transporter.logistic.com/peers/peer0.transporter.logistic.com/msp:/etc/hyperledger/fabric/msp
@@ -51,18 +53,19 @@ services:
         ports:
             - 8051:8051
 
-    warehouse:
-        container_name: warehouse
+    peer0.warehouse.logistic.com:
+        container_name: peer0.warehouse.logistic.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=warehouse
-            - CORE_PEER_ADDRESS=warehouse:9051
+            - CORE_PEER_ID=peer0.warehouse.logistic.com
+            - CORE_PEER_ADDRESS=peer0.warehouse.logistic.com:9051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-            - CORE_PEER_CHAINCODEADDRESS=warehouse:9052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.warehouse.logistic.com:9052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
-            - CORE_PEER_LOCALMSPID=warehouse
+            - CORE_PEER_LOCALMSPID=WarehouseMSP
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.warehouse.logistic.com:9051
         volumes:
             - /var/run/:/host/var/run/
             - ../crypto-config/peerOrganizations/warehouse.logistic.com/peers/peer0.warehouse.logistic.com/msp:/etc/hyperledger/fabric/msp
@@ -70,18 +73,19 @@ services:
         ports:
             - 9051:9051
 
-    consignee:
-        container_name: consignee
+    peer0.consignee.logistic.com:
+        container_name: peer0.consignee.logistic.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=consignee
-            - CORE_PEER_ADDRESS=consignee:10051
+            - CORE_PEER_ID=peer0.consignee.logistic.com
+            - CORE_PEER_ADDRESS=peer0.consignee.logistic.com:10051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
-            - CORE_PEER_CHAINCODEADDRESS=consignee:10052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.consignee.logistic.com:10052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
-            - CORE_PEER_LOCALMSPID=consignee
+            - CORE_PEER_LOCALMSPID=ConsigneeMSP
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.consignee.logistic.com:10051
         volumes:
             - /var/run/:/host/var/run/
             - ../crypto-config/peerOrganizations/consignee.logistic.com/peers/peer0.consignee.logistic.com/msp:/etc/hyperledger/fabric/msp

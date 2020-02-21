@@ -4,6 +4,7 @@
 IMAGE_TAG="2.0"
 CHANNEL_NAME="logistic-channel"
 COMPOSE_FILE=docker-compose.yaml
+CA_COMPOSE_FILE=docker-compose-ca.yaml
 
 export PATH=${PWD}/../../bin:${PWD}:$PATH
 export FABRIC_CFG_PATH=${PWD}
@@ -14,19 +15,19 @@ generateCerts() {
     if [ -d "crypto-config" ]; then
         rm -rf crypto-config/
     fi
-    cryptogen generate --config=./crypto-config.yaml 
+    cryptogen generate --config=./crypto-config.yaml
     res=$?
     if [ $res -ne 0 ]; then
         echo "Failed to genearate certifacts..."
         exit 1
     fi
     echo
-} 
+}
 
 generateChannelArtifacts() {
     if ! [ -d channel-artifacts ]; then
         mkdir channel-artifacts
-    fi 
+    fi
     configtxgen -profile LogisticGenesis -outputBlock ./channel-artifacts/genesis.block -channelID system-channel
     res=$?
     if [ $res -ne 0 ]; then
@@ -43,7 +44,7 @@ generateChannelArtifacts() {
     fi
     echo
 
-    for orgmsp in shipper transporter warehouse consignee ; do
+    for orgmsp in Shipper Transporter Warehouse Consignee; do
         configtxgen -profile LogisticChannel -outputAnchorPeersUpdate ./channel-artifacts/${orgmsp}anchors.tx -channelID $CHANNEL_NAME -asOrg ${orgmsp}
     done
 }
@@ -56,24 +57,45 @@ generateFiles() {
 networkUp() {
     generateFiles
 
-    IMAGE_TAG=$IMAGE_TAG docker-compose -f $COMPOSE_FILE up -d orderer shipper transporter warehouse consignee
+    IMAGE_TAG=$IMAGE_TAG docker-compose -f $COMPOSE_FILE up -d orderer.logistic.com peer0.shipper.logistic.com peer0.transporter.logistic.com peer0.warehouse.logistic.com peer0.consignee.logistic.com cli
+    IMAGE_TAG=$IMAGE_TAG docker-compose -f $CA_COMPOSE_FILE up -d ca-shipper ca-transporter ca-warehouse ca-consignee
 
-    # docker exec cli sh scripts/script.sh
+    CHANNEL_NAME=$CHANNEL_NAME docker exec cli sh scripts/script.sh
+}
+
+clearContainers() {
+    CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /dev-peer.*/) {print $1}')
+    if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
+        echo "---- No containers available for deletion ----"
+    else
+        docker rm -f $CONTAINER_IDS
+    fi
+}
+
+removeUnwantedImages() {
+  DOCKER_IMAGE_IDS=$(docker images | awk '($1 ~ /dev-peer.*/) {print $3}')
+  if [ -z "$DOCKER_IMAGE_IDS" -o "$DOCKER_IMAGE_IDS" == " " ]; then
+    echo "---- No images available for deletion ----"
+  else
+    docker rmi -f $DOCKER_IMAGE_IDS
+  fi
 }
 
 networkDown() {
     docker-compose -f $COMPOSE_FILE down --volumes --remove-orphans
- 
-    # docker run -v $PWD:/tmp/first-network --rm hyperledger/fabric-tools:$IMAGETAG rm -Rf /tmp/first-network/ledgers-backup
-    
-    # CONTAINER_IDS=$(docker ps -aq)
+    docker-compose -f $CA_COMPOSE_FILE down --volumes --remove-orphans
+
+    docker run -v $PWD:/tmp/first-network --rm hyperledger/fabric-tools:$IMAGETAG rm -Rf /tmp/first-network/ledgers-backup
+
+    clearContainers
+    removeUnwantedImages
     
     #TODO clean images
     rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config
 }
 
 clean() {
-    if [ -d channel-artifacts ]; then 
+    if [ -d channel-artifacts ]; then
         rm -rf channel-artifacts
     fi
 
@@ -83,7 +105,7 @@ clean() {
 }
 
 MODE=$1
-if [ "$MODE" == "up" ]; then 
+if [ "$MODE" == "up" ]; then
     networkUp
 elif [ "$MODE" == "down" ]; then
     networkDown
@@ -91,6 +113,8 @@ elif [ "$MODE" == "generate" ]; then
     generateFiles
 elif [ "$MODE" == "clean" ]; then
     clean
+elif [ "$MODE" == "restart" ]; then
+    networkDown && networkUp
 else
     echo "up / down / generate / clean"
 fi

@@ -1,49 +1,71 @@
 #! /bin/bash
 
-CHANNEL_NAME="milkchannel"
-
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/logistic.com/orderers/orderer.logistic.com/msp/tlscacerts/tlsca.logistic.com-cert.pem
+SHIPPER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shipper.logistic.com/peers/peer0.shipper.logistic.com/tls/ca.crt
+TRANSPORTER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/transporter.logistic.com/peers/peer0.transporter.logistic.com/tls/ca.crt
+WAREHOUSE_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/warehouse.logistic.com/peers/peer0.warehouse.logistic.com/tls/ca.crt
+CONSIGNEE_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/consignee.logistic.com/peers/peer0.consignee.logistic.com/tls/ca.crt
+CHANNEL_NAME=logistic-channel
 
 ####################### functions ########################
 createChannel() {
-	CORE_PEER_LOCALMSPID=partya
-	CORE_PEER_ADDRESS=milk-partya:7051
-	CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/partya.example.com/users/Admin@partya.example.com/msp
-	echo "===================== Creating channel ===================== "
-	peer channel create -o milk-orderer:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx
+	setGlobals shipper
+	echo "===================== fuck it Creating channel $CHANNEL_NAME ===================== "
+	peer channel create -o orderer.logistic.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile $ORDERER_CA
 	echo "===================== Channel created ===================== "
 }
 
+setGlobals() {
+  	ORG=$1
+	if [ "$ORG" == "shipper" ]; then
+		PORT=7051
+    	CORE_PEER_TLS_ROOTCERT_FILE=$SHIPPER_CA
+		CORE_PEER_LOCALMSPID=ShipperMSP
+	elif [ "$ORG" == "transporter" ]; then
+		PORT=8051
+    	CORE_PEER_TLS_ROOTCERT_FILE=$TRANSPORTER_CA
+		CORE_PEER_LOCALMSPID=TransporterMSP
+	elif [ "$ORG" == "warehouse" ]; then
+		PORT=9051
+    	CORE_PEER_TLS_ROOTCERT_FILE=$WAREHOUSE_CA
+		CORE_PEER_LOCALMSPID=WarehouseMSP
+	elif [ "$ORG"  == "consignee" ]; then
+		PORT=10051
+    	CORE_PEER_TLS_ROOTCERT_FILE=$CONSIGNEE_CA
+		CORE_PEER_LOCALMSPID=ConsigneeMSP
+	fi
+
+	CORE_PEER_ADDRESS=peer0.$ORG.logistic.com:$PORT
+	CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/$ORG.logistic.com/users/Admin@$ORG.logistic.com/msp
+}
+
 joinChannel() {
-	for org in partya partyb partyc
+	for org in shipper transporter warehouse consignee
 	do
-		CORE_PEER_LOCALMSPID=$org
-		CORE_PEER_ADDRESS=milk-$org:7051
-		CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/$org.example.com/users/Admin@$org.example.com/msp
+		setGlobals $org
 		echo "===================== Org $org joining channel ===================== "
-		peer channel join -b $CHANNEL_NAME.block -o milk-orderer:7050
+		peer channel join -b $CHANNEL_NAME.block
 		echo "===================== Channel joined ===================== "
 	done
 }
 
 getState() {
-	CORE_PEER_LOCALMSPID=partya
-	CORE_PEER_ADDRESS=milk-partya:7051
-	CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/partya.example.com/users/User1@partya.example.com/msp
+	CC_NAME=logistic
+	setGlobals shipper
+	params=$(peerParameters)
 	echo "===================== Invoking chaincode ===================== "
-	peer chaincode invoke -o milk-orderer:7050 -C $CHANNEL_NAME --waitForEvent -n $CC_NAME --peerAddresses milk-partya:7051 --peerAddresses milk-partyb:7051 -c '{"Args":["getCowHistory", "11111"]}'
+	peer chaincode invoke --tls --cafile $ORDERER_CA -C $CHANNEL_NAME --waitForEvent -n $CC_NAME $params -c '{"Args":["getState", "key key key"]}'
 	echo "===================== Chaincode invoked ===================== "
 }
 
 putState() {
-	CORE_PEER_LOCALMSPID=partya
-	CORE_PEER_ADDRESS=milk-partya:7051
-	CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/partya.example.com/users/User1@partya.example.com/msp
+	CC_NAME=logistic
+	setGlobals shipper
+	params=$(peerParameters)
 	echo "===================== Invoking chaincode ===================== "
-	peer chaincode invoke -o milk-orderer:7050 -C $CHANNEL_NAME --waitForEvent -n $CC_NAME --peerAddresses milk-partya:7051 --peerAddresses milk-partyb:7051 -c '{"Args":["putCowReport", "11111", "report data aaaa"]}'
+	peer chaincode invoke --tls --cafile $ORDERER_CA -C $CHANNEL_NAME --waitForEvent -n $CC_NAME $params -c '{"Args":["putState", "key key key", "value value value"]}'
 	echo "===================== Chaincode invoked ===================== "
 }
-
-#  peer chaincode invoke -o milk-orderer:7050 -C milkchannel --waitForEvent -n factory --peerAddresses milk-partya:7051 milk-partyb:7051 -c '{"Args":["putMilkReport", "2222", "11111", "666",  "report data aaaa"]}'
 
 ####################### commands ########################
 
@@ -63,15 +85,15 @@ echo "chaincode set up..."
 . scripts/install-chaincode.sh 
 chaincodeSetUp
 
-# ## put state in ledger
-# echo
-# echo "putting state..."
-# putState
+## put state in ledger
+echo
+echo "putting state..."
+putState
 
-# ## get state in ledger
-# echo
-# echo "getState..."
-# getState
+## get state in ledger
+echo
+echo "getState..."
+getState
 
 ## end
 echo "create channel and install chaincode finished successfully!"
