@@ -1,0 +1,5 @@
+package contract
+
+type CreateOrderRequest OrderCreate
+type PutTransportInfoRequest TransportInfo
+type PutWarehouseInfoRequest WarehouseInfo
