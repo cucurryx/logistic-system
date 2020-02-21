@@ -1,0 +1,49 @@
+{
+    "name": "logistic-network-${ORG}",
+    "version": "1.0.0",
+    "client": {
+        "organization": "${ORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORG}": {
+            "mspid": "${ORGMSP}",
+            "peers": [
+                "peer0.${ORG}.logistic.com"
+            ],
+            "certificateAuthorities": [
+                "ca-${ORG}"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.${ORG}.logistic.com": {
+            "url": "grpcs://localhost:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.${ORG}.logistic.com",
+                "hostnameOverride": "peer0.${ORG}.logistic.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca-${ORG}": {
+            "url": "https://localhost:${CAPORT}",
+            "caName": "ca-${ORG}",
+            "tlsCACerts": {
+                "pem": "${CAPEM}"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

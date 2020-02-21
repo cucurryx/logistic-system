@@ -9,12 +9,13 @@ services:
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-shipper
+            - FABRIC_CA_SERVER_TLS_ENABLED=true
             - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.shipper.logistic.com-cert.pem
-            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/priv_sk
+            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${SHIPPER_CA_PRIVATE_KEY}
             - FABRIC_CA_SERVER_PORT=7054
         ports:
             - "7054:7054"
-        command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.shipper.logistic.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${SHIPPER_CA_PRIVATE_KEY} -b admin:adminpw -d'
         volumes:
             - ./crypto-config/peerOrganizations/shipper.logistic.com/ca/:/etc/hyperledger/fabric-ca-server-config
         container_name: ca-shipper
@@ -26,12 +27,13 @@ services:
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-transporter
+            - FABRIC_CA_SERVER_TLS_ENABLED=true
             - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.transporter.logistic.com-cert.pem
-            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/priv_sk
+            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${TRANSPORTER_CA_PRIVATE_KEY}
             - FABRIC_CA_SERVER_PORT=7054
         ports:
             - "8054:8054"
-        command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.transporter.logistic.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${TRANSPORTER_CA_PRIVATE_KEY} -b admin:adminpw -d'
         volumes:
             - ./crypto-config/peerOrganizations/transporter.logistic.com/ca/:/etc/hyperledger/fabric-ca-server-config
         container_name: ca-transporter
@@ -43,12 +45,13 @@ services:
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-warehouse
+            - FABRIC_CA_SERVER_TLS_ENABLED=true
             - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.warehouse.logistic.com-cert.pem
-            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/priv_sk
+            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${WAREHOUSE_CA_PRIVATE_KEY}
             - FABRIC_CA_SERVER_PORT=7054
         ports:
             - "9054:9054"
-        command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.warehouse.logistic.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${WAREHOUSE_CA_PRIVATE_KEY} -b admin:adminpw -d'
         volumes:
             - ./crypto-config/peerOrganizations/warehouse.logistic.com/ca/:/etc/hyperledger/fabric-ca-server-config
         container_name: ca-warehouse
@@ -60,12 +63,13 @@ services:
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-consignee
+            - FABRIC_CA_SERVER_TLS_ENABLED=true
             - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.consignee.logistic.com-cert.pem
-            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/priv_sk
+            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CONSIGNEE_CA_PRIVATE_KEY}
             - FABRIC_CA_SERVER_PORT=7054
         ports:
             - "10054:10054"
-        command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.consignee.logistic.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/${CONSIGNEE_CA_PRIVATE_KEY} -b admin:adminpw -d'
         volumes:
             - ./crypto-config/peerOrganizations/consignee.logistic.com/ca/:/etc/hyperledger/fabric-ca-server-config
         container_name: ca-consignee

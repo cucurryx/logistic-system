@@ -57,6 +57,11 @@ generateFiles() {
 networkUp() {
     generateFiles
 
+    export SHIPPER_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/shipper.logistic.com/ca && ls *_sk)
+    export TRANSPORTER_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/transporter.logistic.com/ca && ls *_sk)
+    export WAREHOUSE_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/warehouse.logistic.com/ca && ls *_sk)
+    export CONSIGNEE_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/consignee.logistic.com/ca && ls *_sk)
+
     IMAGE_TAG=$IMAGE_TAG docker-compose -f $COMPOSE_FILE up -d orderer.logistic.com peer0.shipper.logistic.com peer0.transporter.logistic.com peer0.warehouse.logistic.com peer0.consignee.logistic.com cli
     IMAGE_TAG=$IMAGE_TAG docker-compose -f $CA_COMPOSE_FILE up -d ca-shipper ca-transporter ca-warehouse ca-consignee
 
@@ -94,6 +99,11 @@ networkDown() {
     rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config
 }
 
+restartCA() {
+    docker-compose -f $CA_COMPOSE_FILE down --volumes --remove-orphans
+    docker-compose -f $CA_COMPOSE_FILE up -d ca-shipper ca-transporter ca-warehouse ca-consignee
+}
+
 clean() {
     if [ -d channel-artifacts ]; then
         rm -rf channel-artifacts
@@ -115,6 +125,8 @@ elif [ "$MODE" == "clean" ]; then
     clean
 elif [ "$MODE" == "restart" ]; then
     networkDown && networkUp
+elif [ "$MODE" == "ca" ]; then
+    restartCA
 else
     echo "up / down / generate / clean"
 fi
