@@ -3,7 +3,9 @@ package contract
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -11,6 +13,14 @@ type Context contractapi.TransactionContextInterface
 
 type LogisticContract struct {
 	contractapi.Contract
+}
+
+type Transaction struct {
+	State     *GoodsState `json:"state"`
+	Timestamp string      `json:"timestamp"`
+}
+type HistoryResponse struct {
+	Transactions []*Transaction `json:"transactions"`
 }
 
 func (c *LogisticContract) Instantiate() {
@@ -53,7 +63,7 @@ func (c *LogisticContract) PutTransportInfo(ctx Context, requestData []byte) err
 	}
 
 	var goodsState GoodsState
-	if err := json.Unmarshal(data, &goodsState);  err != nil {
+	if err := json.Unmarshal(data, &goodsState); err != nil {
 		return err
 	}
 
@@ -84,11 +94,11 @@ func (c *LogisticContract) PutWarehouseInfo(ctx Context, requestData []byte) err
 	}
 
 	var goodsState GoodsState
-	if err := json.Unmarshal(data, &goodsState);  err != nil {
+	if err := json.Unmarshal(data, &goodsState); err != nil {
 		return err
 	}
 
-	if goodsState.State != TRANSPORTING  {
+	if goodsState.State != TRANSPORTING {
 		return fmt.Errorf("goods' state is TRANSPORTING")
 	}
 
@@ -113,7 +123,7 @@ func (c *LogisticContract) ReceiveGoods(ctx Context, id uint64) error {
 		return err
 	}
 
-	if goodsState.State !=  TRANSPORTING {
+	if goodsState.State != TRANSPORTING {
 		return fmt.Errorf("can't receive goods because goods' state is not TRANSPORTING")
 	}
 	goodsState.State = RECEIVED
@@ -144,6 +154,34 @@ func (c *LogisticContract) GetGoodsInfo(ctx Context, id uint64) (*GoodsState, er
 }
 
 // 获取物件transaction记录
-func (c *LogisticContract) GetGoodsHistory(ctx Context, id uint64) ([]*GoodsState, error) {
-	return nil, nil
+func (c *LogisticContract) GetGoodsHistory(ctx Context, id uint64) (*HistoryResponse, error) {
+	histories, err := ctx.GetStub().GetHistoryForKey(string(id))
+	if err != nil {
+		return nil, err
+	}
+
+	var response HistoryResponse
+	for histories.HasNext() {
+		history, err := histories.Next()
+		if err != nil {
+			return nil, err
+		}
+
+		var goodsState GoodsState
+		if err := json.Unmarshal(history.GetValue(), &goodsState); err != nil {
+			return nil, err
+		}
+
+		response.Transactions = append(response.Transactions,
+			&Transaction{
+				State:     &goodsState,
+				Timestamp: timestampToStr(history.GetTimestamp()),
+			})
+	}
+	return &response, nil
+}
+
+func timestampToStr(ts *timestamp.Timestamp) string {
+	tm := time.Unix(ts.Seconds, 0)
+	return tm.Format("2006-01-02 03:04:05 PM")
 }

@@ -5,6 +5,9 @@
 - putTransportInfo
 - putWarehouseInfo
 - receiveGoods
+- getGoodsInfo
+- getGoodsHistory
+
 
 ```go
 type GoodsState struct {
