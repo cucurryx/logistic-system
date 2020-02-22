@@ -1,10 +1,13 @@
 
 export class WarehouseReportRequest {
-    public id: string;
-    public client: string;
-    public receiver: string;
-    public name: string;
-    public source: string;
-    public destination: string;
-    public description: string;
+    public goods_id: string;
+    public storage_position: StoragePosition;
+}
+
+class StoragePosition {
+    public warehouse_id: string;
+    public warehouse_name: string;
+    public zone_id: string;
+    public self_id: string;
+    public position: string;
 }
