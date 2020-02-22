@@ -37,7 +37,7 @@ export async function enroll(username: string, password: string) {
         };
         await wallet.put(username, x509Identity);
         console.log("identity for admin put to wallet successfully");
-        
+
     } catch (error) {
         console.error(`Failed to enroll admin user "admin": ${error}`);
         throw error;
