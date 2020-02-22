@@ -43,3 +43,7 @@ export async function enroll(username: string, password: string) {
         throw error;
     }
 }
+
+enroll('admin', 'adminpw').then(function() {
+    console.log(`enroll admin finished`);
+});
