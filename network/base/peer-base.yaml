@@ -7,7 +7,7 @@ services:
             - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
             # network is ${COMPOSE_PROJECT_NAME}
             - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=network_loginet
-            - FABRIC_LOGGING_SPEC=DEBUG
+            - FABRIC_LOGGING_SPEC=INFO
             # tls
             - CORE_PEER_TLS_ENABLED=true
             - CORE_PEER_PROFILE_ENABLED=true
@@ -22,7 +22,7 @@ services:
     orderer-base:
         image: hyperledger/fabric-orderer:$IMAGE_TAG
         environment:
-            - FABRIC_LOGGING_SPEC=DEBUG
+            - FABRIC_LOGGING_SPEC=INFO
             - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
             - ORDERER_GENERAL_BOOTSTRAPMETHOD=file
             - ORDERER_GENERAL_BOOTSTRAPFILE=/var/hyperledger/orderer/orderer.genesis.block

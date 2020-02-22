@@ -49,13 +49,18 @@ generateChannelArtifacts() {
     done
 }
 
+generateCCP() {
+    sh ccp-generate.sh
+}
+
 generateFiles() {
     generateCerts
     generateChannelArtifacts
+    generateCCP
 }
 
 networkUp() {
-    generateFiles
+    # generateFiles
 
     export SHIPPER_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/shipper.logistic.com/ca && ls *_sk)
     export TRANSPORTER_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/transporter.logistic.com/ca && ls *_sk)
@@ -96,7 +101,7 @@ networkDown() {
     removeUnwantedImages
     
     #TODO clean images
-    rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config
+    # rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config
 }
 
 restartCA() {
