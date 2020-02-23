@@ -86,14 +86,14 @@ echo "chaincode set up..."
 chaincodeSetUp
 
 ## put state in ledger
-echo
-echo "putting state..."
-putState
+#echo
+#echo "putting state..."
+# putState
 
 ## get state in ledger
-echo
-echo "getState..."
-getState
+#echo
+#echo "getState..."
+#getState
 
 ## end
 echo "create channel and install chaincode finished successfully!"
