@@ -2,16 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d90eda7e-48a5-4a88-b639-03bf70ea595e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/connection.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/application/enroll.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/application/get_goods_history.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/application/get_goods_info.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/common/request.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/common/request.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/warehouse/src/common/result.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/shipper/src/application/enroll.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/shipper/src/application/enroll.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/angular.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/browserslist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/e2e/protractor.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/e2e/src/app.e2e-spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/e2e/src/app.po.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/e2e/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/karma.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app-routing.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/app.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/assets/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/environments/environment.prod.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/environments/environment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/polyfills.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/src/test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/tsconfig.app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/tsconfig.spec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/shipper/tslint.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/shipper/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/shipper/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/shipper/wallet/admin.id" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/shipper/wallet/admin.id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contract/logistic_contract.go" beforeDir="false" afterPath="$PROJECT_DIR$/contract/logistic_contract.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../network/docker-compose-ca.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../network/docker-compose-ca.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,11 +46,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/contract/logistic_contract.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="84" column="35" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
+            <state relative-caret-position="491">
+              <caret line="193" column="9" lean-forward="true" selection-start-line="193" selection-start-column="9" selection-end-line="193" selection-end-column="9" />
               <folding>
                 <element signature="n#!!block;n#CreateOrder#0" />
                 <element signature="n#!!block;n#ReceiveGoods#0" />
@@ -38,7 +63,7 @@
         <entry file="file://$USER_HOME$/go/pkg/mod/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20200128192331-2d899240a7ed/shim/interfaces.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="236">
-              <caret line="80" column="4" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
+              <caret line="369" column="4" selection-start-line="369" selection-start-column="4" selection-end-line="369" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -52,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contract/goods.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="47" selection-start-line="47" selection-end-line="51" selection-end-column="58" />
+            <state relative-caret-position="1350">
+              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -151,6 +176,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
@@ -182,7 +208,7 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26037195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -219,24 +245,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/go/pkg/mod/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20200128192331-2d899240a7ed/shim/interfaces.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="80" column="4" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contract/logistic_contract.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="84" column="35" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
-          <folding>
-            <element signature="n#!!block;n#CreateOrder#0" />
-            <element signature="n#!!block;n#ReceiveGoods#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/contract/requests.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -246,8 +254,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/contract/goods.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="47" selection-start-line="47" selection-end-line="51" selection-end-column="58" />
+        <state relative-caret-position="1350">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/pkg/mod/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20200128192331-2d899240a7ed/shim/interfaces.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="369" column="4" selection-start-line="369" selection-start-column="4" selection-end-line="369" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contract/logistic_contract.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="193" column="9" lean-forward="true" selection-start-line="193" selection-start-column="9" selection-end-line="193" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!block;n#CreateOrder#0" />
+            <element signature="n#!!block;n#ReceiveGoods#0" />
+          </folding>
         </state>
       </provider>
     </entry>

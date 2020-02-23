@@ -175,6 +175,30 @@ func (c *LogisticContract) GetGoodsHistory(ctx Context, id string) (HistoryRespo
 	return response, nil
 }
 
+func (c *LogisticContract) GetAllGoodsInfo(ctx Context) ([]GoodsState, error) {
+	iter, err := ctx.GetStub().GetStateByRange("", "")
+	if err != nil {
+		return nil, fmt.Errorf("GetAllGoodsInfo failed, err: %+v", err)
+	}
+
+	var goodsList []GoodsState
+	for iter.HasNext() {
+		result, err := iter.Next()
+		if err != nil {
+			return nil, fmt.Errorf("GetAllGoodsInfo iter.Next() failed, err: %+v", err)
+		}
+
+		var goodsState GoodsState
+		if err := json.Unmarshal(result.GetValue(), &goodsState); err != nil {
+			return nil, fmt.Errorf("GetAllGoodsInfo unmarshal value failed, key:%s, value:%+v, err: %+v", result.GetKey(), result.GetValue, err)
+		}
+
+		goodsList = append(goodsList, goodsState)
+	}
+
+	return goodsList, nil
+}
+
 func (c *LogisticContract) GetState(ctx Context, key string) (string, error) {
 	value, err := ctx.GetStub().GetState(key)
 	if err != nil {
@@ -183,7 +207,7 @@ func (c *LogisticContract) GetState(ctx Context, key string) (string, error) {
 	return string(value), nil
 }
 
-func (c* LogisticContract) PutState(ctx Context, key, value string) error {
+func (c *LogisticContract) PutState(ctx Context, key, value string) error {
 	if err := ctx.GetStub().PutState(key, []byte(value)); err != nil {
 		return fmt.Errorf("PutState error, err: %+v", err)
 	} else {
