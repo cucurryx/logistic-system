@@ -131,3 +131,12 @@ Content-Type: application/json
     }
 }
 ```
+
+- POST /transport/get_all_goods 查询所有物品信息
+```http request
+
+```
+
+```json
+
+```

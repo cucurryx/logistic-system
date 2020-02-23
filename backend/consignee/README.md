@@ -161,3 +161,13 @@ Content-Type: application/json
     }
 }
 ```
+
+- POST `/consignee/get_all_goods`：查询所有订单状态
+  
+```http request
+
+```
+
+```json
+
+```

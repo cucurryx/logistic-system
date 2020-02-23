@@ -5,6 +5,7 @@ import { Result } from 'src/common/result';
 import { createOrder } from '../application/create_order';
 import { getGoodsInfo } from '../application/get_goods_info';
 import { getGoodsHistory } from '../application/get_goods_history';
+import { getAllGoodsInfo } from '../application/get_all_goods_info';
 
 @Controller('order')
 export class OrderController {
@@ -52,4 +53,16 @@ export class OrderController {
         return {code: 500, message: "internal error", data: e};
       }
     }
+
+  @Post("get_all_goods")
+  async getAllGoodsInfo(): Promise<Result> {
+    console.log(`getAllGoodsInfo`);
+    try {
+      const buffer = await getAllGoodsInfo('admin');
+      const response = JSON.parse(buffer.toString());
+      return {code: 200, message: "ok", data: response};
+    } catch (e) {
+      return {code: 500, message: "internal error", data: e};
+    }
+  }
 }
