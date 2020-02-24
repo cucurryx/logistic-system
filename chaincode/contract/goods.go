@@ -11,6 +11,8 @@ const (
 
 type GoodsState struct {
 	State            State          `json:"state"`
+	ID  			 string 		`json:"id"`
+	Name  			 string  		`json:"name"`
 	OrderCreateState *OrderCreate   `json:"order_create_state"`
 	TransportState   *TransportInfo `json:"transport_state"`
 	WarehouseState   *WarehouseInfo `json:"warehouse_state"`
@@ -54,6 +56,8 @@ type StoragePosition struct {
 
 func (s *GoodsState) SetOrderCreated(create *OrderCreate) {
 	s.State = UNPROCESSED
+	s.ID = create.ID
+	s.Name = create.Name
 	s.OrderCreateState = create
 }
 
