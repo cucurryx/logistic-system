@@ -1,0 +1,16 @@
+.detail-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.stepper-box {
+  display: flex;
+  padding: 30px;
+  width: 60%;
+  justify-content: left;
+}
+
+.card-box {
+  width: 100%;
+}

@@ -1,1 +1,50 @@
-<p>order-list works!</p>
+<div class="order-list-box">
+  <div></div>
+  <div class="table-box">
+
+      <mat-form-field>
+        <mat-label>物流订单搜索</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="例如：运输中">
+      </mat-form-field>
+
+  <div *ngIf="acceptData == false" style="display: flex; justify-content: center">
+        <mat-spinner></mat-spinner>
+  </div>
+
+
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" *ngIf="acceptData">
+        <!-- Position Column -->
+        <ng-container matColumnDef="goods_id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物品ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.goods_id}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物品名称 </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 物流状态 </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="placeholder">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button color="primary" routerLink="/detail/{{element.goods_id}}">
+              查看详情
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+  </div>
+  <div></div>
+</div>

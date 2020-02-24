@@ -1,1 +1,55 @@
-<p>transport-report works!</p>
+<div class="transport-report-box">
+  <div></div>
+
+  <form class="input-box">
+    <mat-form-field class="example-full-width">
+      <mat-label>货物ID</mat-label>
+      <input  matInput (keyup)="onGoodsIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>运输负责人</mat-label>
+      <input matInput (keyup)="onPrincipalEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>运输车牌号</mat-label>
+      <input matInput placeholder="例如：鄂A 666666" (keyup)="onCarIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>运输出发地</mat-label>
+      <input matInput (keyup)="onSourceEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>运输目的地</mat-label>
+      <input matInput (keyup)="onDestinationEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>选择运输日期</mat-label>
+      <input matInput [matDatepicker]="picker" [formControl]="start_date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="button-box">
+      <div>
+        <button mat-raised-button routerLink="/">
+          取消
+        </button>
+      </div>
+      <div style="width: 50px">
+
+      </div>
+      <div>
+        <button mat-raised-button color="accent" (click)="onCreateClick()">
+          确认上报
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div></div>
+</div>
