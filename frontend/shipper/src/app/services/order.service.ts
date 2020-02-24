@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import {GoodsInfo} from './goods';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {OrderCreate} from '../order-create/order-create.component';
+import {Subscribable} from 'rxjs';
 
 export class Response {
   status: number;
@@ -11,19 +12,19 @@ export class Response {
 @Injectable()
 export class OrderService {
 
-  private url: string = "https://127.0.0.1:3000";
+  private url: string = "api/order";
 
   constructor(private httpClient: HttpClient) { }
 
   public getAllGoods() {
-    return this.httpClient.get<Response>(this.url + 'order' + '/get_all_goods');
+    return this.httpClient.post(this.url + '/get_all_goods', {});
   }
 
-  public createOrder() {
-    return null;
+  public createOrder(orderCreate: OrderCreate) {
+    return this.httpClient.post(this.url + '/create', orderCreate);
   }
 
-  public getGoodsHistory() {
-    return null;
+  public getGoodsHistory(id: string): Subscribable<any> {
+    return this.httpClient.post(this.url + '/get_history', { goodsID: id} );
   }
 }

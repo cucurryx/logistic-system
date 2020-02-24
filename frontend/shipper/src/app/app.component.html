@@ -1,12 +1,14 @@
-<div layout="row">
-  <md-sidenav md-component-id="sidenav" class="md-sidenav-left">
-    Sidenav
-  </md-sidenav>
-  <md-content>
-    <md-button ng-click="toggleSidenav('sidenav')">
-      Open sidenav
-    </md-button>
-    <p>Main content</p>
-  </md-content>
+<div class="box">
+  <div>
+    <app-header></app-header>
+  </div>
+<!--  <div style="height: 100%">-->
+<!--    <app-order-list></app-order-list>-->
+<!--  </div>-->
+  <div style="height: 100%">
+    <router-outlet></router-outlet>
+  </div>
+  <div>
+    <app-footer></app-footer>
+  </div>
 </div>
-<router-outlet></router-outlet>

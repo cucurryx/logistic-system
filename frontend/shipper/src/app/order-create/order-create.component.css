@@ -1,0 +1,19 @@
+.order-create-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px;
+  width: 30%;
+}
+
+.button-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

@@ -1,1 +1,55 @@
-<p>order-create works!</p>
+<div class="order-create-box">
+  <div></div>
+    <form class="input-box">
+      <mat-form-field class="example-full-width">
+        <mat-label>货物ID</mat-label>
+        <input  matInput (keyup)="onGoodsIdEnter($event)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>货物名称</mat-label>
+        <textarea matInput placeholder="例如：MacBook Pro 13inch" (keyup)="onGoodsNameEnter($event)"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>物品描述</mat-label>
+        <textarea matInput placeholder="例如：MacBook Pro 13inch" (keyup)="onDescriptionEnter($event)"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>发件方</mat-label>
+        <input matInput (keyup)="onClientEnter($event)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>收件方</mat-label>
+        <input matInput (keyup)="onReceiverEnter($event)">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>出发地</mat-label>
+        <input matInput (keyup)="onSourceEnter($event)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>目的地</mat-label>
+        <input matInput (keyup)="onDestinationEnter($event)">
+      </mat-form-field>
+
+      <div class="button-box">
+        <div>
+          <button mat-raised-button routerLink="/">
+            取消
+          </button>
+        </div>
+        <div style="width: 50px">
+
+        </div>
+        <div>
+          <button mat-raised-button color="accent" (click)="onCreateClick()">
+            确认创建
+          </button>
+        </div>
+      </div>
+    </form>
+  <div></div>
+</div>
