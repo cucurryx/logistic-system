@@ -7,7 +7,7 @@ import { getGoodsInfo } from '../application/get_goods_info';
 import { getGoodsHistory } from '../application/get_goods_history';
 import { getAllGoodsInfo } from '../application/get_all_goods_info';
 
-@Controller('order')
+@Controller('api/order')
 export class OrderController {
     constructor(private orderService: OrderService) { }
 
@@ -62,7 +62,7 @@ export class OrderController {
       const response = JSON.parse(buffer.toString());
       return {code: 200, message: "ok", data: response};
     } catch (e) {
-      return {code: 500, message: "internal error", data: e};
+      return {code: 500, message: "internal error", data: e };
     }
   }
 }

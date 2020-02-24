@@ -2,11 +2,11 @@ import { Controller, Body, Post, Req, Param, Request, HttpStatus } from '@nestjs
 import { AppService } from './app.service';
 import { Result } from './common/result';
 
-@Controller("login")
+@Controller("api")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post()
+  @Post("login")
   async login(@Body() body): Promise<Result> {
     const username = body.username;
     const password = body.password;
