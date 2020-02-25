@@ -1,15 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {stateMap} from '../common/common';
+import {OrderService} from '../services/order-service.service';
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.css']
+  styleUrls: ['./order-detail.component.css'],
+  providers: [OrderService]
 })
 export class OrderDetailComponent implements OnInit {
+  transactions: any[];
+  shouldSpinner: boolean;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.getGoodsHistory();
+    this.shouldSpinner = true;
   }
 
+  getGoodsHistory() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.orderService.getGoodsHistory(id).subscribe(
+      response => {
+        this.shouldSpinner = false;
+        this.transactions = (response as any).data.transactions;
+      }
+    );
+  }
+
+  transform(state: string) {
+    return stateMap.get(state);
+  }
 }
+

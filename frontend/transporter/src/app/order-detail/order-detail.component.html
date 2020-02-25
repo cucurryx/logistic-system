@@ -1,10 +1,16 @@
 <div class="detail-box">
   <div></div>
   <div class="stepper-box">
-    <mat-vertical-stepper style="width: 100%">
+
+    <div *ngIf="shouldSpinner" style="position: center">
+      <div></div>
+      <mat-spinner style="padding-top: 100px"></mat-spinner>
+    </div>
+
+    <mat-vertical-stepper style="width: 100%" *ngIf="shouldSpinner == false">
       <mat-step *ngFor="let tx of transactions">
         <ng-template matStepLabel> {{transform(tx.state.state)}} </ng-template>
-<!--        订单创建-->
+        <!--        订单创建-->
         <div *ngIf="tx.state.state == 'UNPROCESSED'">
           <mat-card class="card-box">
             <mat-card-title>
@@ -23,7 +29,7 @@
           </mat-card>
         </div>
 
-<!--        运输状态-->
+        <!--        运输状态-->
         <div *ngIf="tx.state.state == 'TRANSPORTING'">
           <mat-card class="card-box">
             <mat-card-title>
@@ -32,11 +38,11 @@
             <mat-card-subtitle>
               {{tx.timestamp}}
             </mat-card-subtitle>
-            <p>运输负责人:     {{tx.state.transport_state.transport.principal}}</p>
-            <p>运输开始时间:     {{tx.state.transport_state.transport.start_time}}</p>
-            <p>运输车牌号:     {{tx.state.transport_state.transport.car_id}}</p>
-            <p>运输出发地:     {{tx.state.transport_state.transport.source}}</p>
-            <p>运输目的地:    {{tx.state.transport_state.transport.destination}}</p>
+            <p><b>运输负责人:</b>     {{tx.state.transport_state.transport.principal}}</p>
+            <p><b>运输开始时间:  </b>   {{tx.state.transport_state.transport.start_time}}</p>
+            <p><b>运输车牌号: </b>    {{tx.state.transport_state.transport.car_id}}</p>
+            <p><b>运输出发地: </b>    {{tx.state.transport_state.transport.source}}</p>
+            <p><b>运输目的地:  </b>  {{tx.state.transport_state.transport.destination}}</p>
             <p></p>
           </mat-card>
         </div>
@@ -49,11 +55,11 @@
             <mat-card-subtitle>
               {{tx.timestamp}}
             </mat-card-subtitle>
-            <p>仓库ID:     {{tx.state.warehouse_state.storage_position.warehouse_id}}</p>
-            <p>仓库名称:     {{tx.state.warehouse_state.storage_position.warehouse_name}}</p>
-            <p>区域ID:     {{tx.state.warehouse_state.storage_position.zone_id}}</p>
-            <p>货架ID:     {{tx.state.warehouse_state.storage_position.self_id}}</p>
-            <p>具体位置:    {{tx.state.warehouse_state.storage_position.position}}</p>
+            <p><b>仓库ID:</b>     {{tx.state.warehouse_state.storage_position.warehouse_id}}</p>
+            <p><b>仓库名称:  </b>   {{tx.state.warehouse_state.storage_position.warehouse_name}}</p>
+            <p><b>区域ID:</b>     {{tx.state.warehouse_state.storage_position.zone_id}}</p>
+            <p><b>货架ID: </b>    {{tx.state.warehouse_state.storage_position.self_id}}</p>
+            <p><b>具体位置:</b>    {{tx.state.warehouse_state.storage_position.position}}</p>
             <p></p>
           </mat-card>
         </div>

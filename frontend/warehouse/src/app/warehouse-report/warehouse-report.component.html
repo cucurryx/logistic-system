@@ -1,1 +1,54 @@
-<p>warehouse-report works!</p>
+<div class="warehouse-report-box">
+  <div></div>
+
+
+  <form class="input-box">
+    <mat-form-field class="example-full-width">
+      <mat-label>货物ID</mat-label>
+      <input  matInput (keyup)="onGoodsIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>仓库ID</mat-label>
+      <input matInput (keyup)="onWarehouseIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>仓库名称</mat-label>
+      <input matInput (keyup)="onWarehouseNameEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>区域ID</mat-label>
+      <input matInput (keyup)="onZoneIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>货架ID</mat-label>
+      <input matInput (keyup)="onSelfIdEnter($event)">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>存储标号</mat-label>
+      <input matInput (keyup)="onPositionEnter($event)">
+    </mat-form-field>
+
+    <div class="button-box">
+      <div>
+        <button mat-raised-button routerLink="/">
+          取消
+        </button>
+      </div>
+      <div style="width: 50px">
+
+      </div>
+      <div>
+        <button mat-raised-button color="accent" (click)="onReport()">
+          确认上报
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div></div>
+</div>

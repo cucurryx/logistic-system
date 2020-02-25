@@ -1,1 +1,14 @@
-<p>header works!</p>
+<mat-toolbar color="primary" class="box">
+<div>
+  <button mat-button routerLink="/">
+  Logistic Manage System for Warehouse
+  </button>
+</div>
+  <div></div>
+  <div>
+    <button mat-raised-button	color="accent" routerLink="report" *ngIf="shouldDisplayCreateButton()">
+       上报仓储信息
+    </button>
+  </div>
+  <div></div>
+</mat-toolbar>

@@ -123,5 +123,4 @@ export class CreateSuccessDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

@@ -11,8 +11,11 @@ import {stateMap} from '../common/common';
 })
 export class OrderDetailComponent implements OnInit {
   transactions: any[];
+  shouldSpinner: boolean;
 
-  constructor(private route: ActivatedRoute, private orderService: OrderService) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService) {
+    this.shouldSpinner = true;
+  }
 
   ngOnInit(): void {
     this.getGoodsHistory();
@@ -22,6 +25,7 @@ export class OrderDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.orderService.getGoodsHistory(id).subscribe(
       response => {
+        this.shouldSpinner = false;
         this.transactions = (response as any).data.transactions;
       }
     );

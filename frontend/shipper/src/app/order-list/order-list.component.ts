@@ -41,8 +41,8 @@ export class OrderListComponent implements OnInit {
           const elements = [];
           for (const goods of data) {
             elements.push({
-              goods_id: goods.order_create_state.id,
-              name: goods.order_create_state.name,
+              goods_id: goods.id,
+              name: goods.name,
               status: stateMap.get(goods.state),
             })
           }
