@@ -2,36 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d90eda7e-48a5-4a88-b639-03bf70ea595e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/proxy.config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/common/common.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/footer/footer.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/footer/footer.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/footer/footer.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/footer/footer.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/header/header.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/header/header.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/header/header.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/header/header.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-detail/order-detail.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-detail/order-detail.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-detail/order-detail.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-detail/order-detail.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-list/order-list.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-list/order-list.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-list/order-list.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/order-list/order-list.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/services/order.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/services/order.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/create-fail-dialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/create-success-dialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/transport-report.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/transport-report.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/transport-report.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/transporter/src/app/transport-report/transport-report.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contract/goods.go" beforeDir="false" afterPath="$PROJECT_DIR$/contract/goods.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/shipper/src/app/order-create/order-create.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/shipper/src/app/order-create/order-create.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contract/logistic_contract.go" beforeDir="false" afterPath="$PROJECT_DIR$/contract/logistic_contract.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,14 +15,33 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/contract/logistic_contract.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1505">
-              <caret line="145" column="5" lean-forward="true" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
+            <state relative-caret-position="696">
+              <caret line="221" column="1" lean-forward="true" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
               <folding>
                 <element signature="n#!!block;n#CreateOrder#0" />
                 <element signature="n#!!block;n#PutTransportInfo#0" />
                 <element signature="n#!!block;n#PutWarehouseInfo#0" />
                 <element signature="n#!!block;n#ReceiveGoods#0" />
+                <element signature="n#!!block;n#GetGoodsInfo#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/go/1.12.6/libexec/src/time/time.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="861" column="27" selection-start-line="861" selection-start-column="27" selection-end-line="861" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/go/pkg/mod/github.com/hyperledger/fabric-protos-go@v0.0.0-20200124220212-e9cfc186ba7b/ledger/queryresult/kv_query_result.pb.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -60,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/contract/goods.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1566">
-              <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+              <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -94,8 +84,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/contract/requests.go" />
-        <option value="$PROJECT_DIR$/contract/logistic_contract.go" />
         <option value="$PROJECT_DIR$/contract/goods.go" />
+        <option value="$PROJECT_DIR$/contract/logistic_contract.go" />
       </list>
     </option>
   </component>
@@ -135,6 +125,50 @@
             <path>
               <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go Modules &lt;logistic&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go Modules &lt;logistic&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="fabric-protos-go@v0.0.0-20200124220212-e9cfc186ba7b" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go Modules &lt;logistic&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="fabric-protos-go@v0.0.0-20200124220212-e9cfc186ba7b" type="462c0819:PsiDirectoryNode" />
+              <item name="ledger" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go Modules &lt;logistic&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="fabric-protos-go@v0.0.0-20200124220212-e9cfc186ba7b" type="462c0819:PsiDirectoryNode" />
+              <item name="ledger" type="462c0819:PsiDirectoryNode" />
+              <item name="queryresult" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.12.6" type="20ee2d1f:SyntheticLibraryElementNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.12.6" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chaincode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.12.6" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="time" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -178,7 +212,7 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26752505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27110156" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -222,6 +256,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/contract/goods.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1566">
+          <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/contract/requests.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -229,22 +270,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contract/goods.go">
+    <entry file="file://$USER_HOME$/go/pkg/mod/github.com/hyperledger/fabric-protos-go@v0.0.0-20200124220212-e9cfc186ba7b/ledger/queryresult/kv_query_result.pb.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+        <state relative-caret-position="243">
+          <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.12.6/libexec/src/time/time.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="861" column="27" selection-start-line="861" selection-start-column="27" selection-end-line="861" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/contract/logistic_contract.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1505">
-          <caret line="145" column="5" lean-forward="true" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
+        <state relative-caret-position="696">
+          <caret line="221" column="1" lean-forward="true" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
           <folding>
             <element signature="n#!!block;n#CreateOrder#0" />
             <element signature="n#!!block;n#PutTransportInfo#0" />
             <element signature="n#!!block;n#PutWarehouseInfo#0" />
             <element signature="n#!!block;n#ReceiveGoods#0" />
+            <element signature="n#!!block;n#GetGoodsInfo#0" />
           </folding>
         </state>
       </provider>

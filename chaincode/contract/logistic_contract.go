@@ -217,5 +217,6 @@ func (c *LogisticContract) PutState(ctx Context, key, value string) error {
 
 func timestampToStr(ts *timestamp.Timestamp) string {
 	tm := time.Unix(ts.Seconds, 0)
+	tm.Add(time.Hour * 8) // 时区问题，修改到北京时间
 	return tm.Format("2006-01-02 03:04:05 PM")
 }
