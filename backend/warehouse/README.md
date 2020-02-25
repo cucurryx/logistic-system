@@ -19,9 +19,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /warehouse/report 仓储数据上报接口
+- POST /api/warehouse/report 仓储数据上报接口
 ```http request
-POST /warehouse/report HTTP/1.1
+POST /api/warehouse/report HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -44,9 +44,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /warehouse/get_info 查询物品信息接口
+- POST /api/warehouse/get_info 查询物品信息接口
 ```http request
-POST /warehouse/get_info HTTP/1.1
+POST /api/warehouse/get_info HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -77,9 +77,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /warehouse/get_history 查询物品历史记录接口
+- POST /api/warehouse/get_history 查询物品历史记录接口
 ```http request
-POST /warehouse/get_history HTTP/1.1
+POST /api/warehouse/get_history HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 

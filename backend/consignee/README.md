@@ -19,9 +19,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /consignee/receive 确认收货接口
+- POST /api/consignee/receive 确认收货接口
 ```http request
-POST /consignee/receive HTTP/1.1
+POST /api/consignee/receive HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -36,9 +36,9 @@ Content-Type: application/json
     "message": "ok"
 }
 ```
-- POST /consignee/get_info 查询物品信息接口
+- POST /api/consignee/get_info 查询物品信息接口
 ```http request
-POST /consignee/get_info HTTP/1.1
+POST /api/consignee/get_info HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -60,9 +60,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /consignee/get_history 查询物品历史接口
+- POST /api/consignee/get_history 查询物品历史接口
 ```http request
-POST /consignee/get_history HTTP/1.1
+POST /api/consignee/get_history HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -162,7 +162,7 @@ Content-Type: application/json
 }
 ```
 
-- POST `/consignee/get_all_goods`：查询所有订单状态
+- POST `/api/consignee/get_all_goods`：查询所有订单状态
   
 ```http request
 

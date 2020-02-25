@@ -18,9 +18,9 @@ Content-Type: application/json
     "message": "ok"
 }
 ```
-- POST /transport/report 上报运输信息
+- POST /api/transport/report 上报运输信息
 ```http request
-POST /transport/report HTTP/1.1
+POST /api/transport/report HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -42,9 +42,9 @@ Content-Type: application/json
     "message": "ok"
 }
 ```
-- POST /transport/get_info 查询某个物品的当前运输信息
+- POST /api/transport/get_info 查询某个物品的当前运输信息
 ```http request
-POST /transport/get_info HTTP/1.1
+POST /api/transport/get_info HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -75,9 +75,9 @@ Content-Type: application/json
 }
 ```
 
-- POST /transport/get_history 查询某个物品的历史运输记录
+- POST /api/transport/get_history 查询某个物品的历史运输记录
 ```http request
-POST /transport/get_history HTTP/1.1
+POST /api/transport/get_history HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -132,7 +132,7 @@ Content-Type: application/json
 }
 ```
 
-- POST /transport/get_all_goods 查询所有物品信息
+- POST /api/transport/get_all_goods 查询所有物品信息
 ```http request
 
 ```
