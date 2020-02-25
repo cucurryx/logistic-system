@@ -71,9 +71,13 @@ export class OrderListComponent implements OnInit {
       response => {
         const code = (response as any).code;
         if (code == 200) {
-          this.dialog.open(ReceiveSuccessDialog);
+          this.dialog.open(ReceiveSuccessDialog).afterClosed().subscribe(
+            _ => this.ngOnInit()
+          );
         } else {
-          this.dialog.open(ReceiveFailDialog);
+          this.dialog.open(ReceiveFailDialog).afterClosed().subscribe(
+            _ => this.ngOnInit()
+          );
         }
       }
     );
