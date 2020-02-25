@@ -17,7 +17,17 @@ startBackend() {
 startFrontend() {
     for org in shipper transporter warehouse consignee; do
         pushd frontend/$org
-        nohup ng serve --proxy-config proxy.config.json &
+        PORT=4200
+        if [ "$org" == "shipper" ]; then
+            PORT=4200
+        elif [ "$org" == "transporter" ]; then
+            PORT=4300
+        elif [ "$org" == "warehouse" ]; then
+            PORT=4400
+        else 
+            PORT=4500
+        fi
+        nohup ng serve --proxy-config proxy.config.json --port $PORT &
         popd
     done
 }
