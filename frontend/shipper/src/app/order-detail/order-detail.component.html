@@ -1,13 +1,11 @@
 <div class="detail-box">
   <div></div>
-  <div class="stepper-box">
-
-    <div *ngIf="shouldSpinner" style="position: center">
-      <div></div>
-      <mat-spinner style="padding-top: 100px"></mat-spinner>
-    </div>
-    
-    <mat-vertical-stepper style="width: 100%" *ngIf="shouldSpinner == false">
+  <div *ngIf="shouldSpinner" style="position: center">
+    <div></div>
+    <mat-spinner style="padding-top: 100px"></mat-spinner>
+  </div>
+  <div class="stepper-box"  *ngIf="shouldSpinner == false">
+    <mat-vertical-stepper style="width: 100%">
       <mat-step *ngFor="let tx of transactions">
         <ng-template matStepLabel> {{transform(tx.state.state)}} </ng-template>
         <!--        订单创建-->
