@@ -1,0 +1,64 @@
+version: "2"
+networks:
+    loginet:
+        
+services:
+    shipper-backend:
+        image: nestjs/cli
+        environment: 
+            - COMPOSE_PROJECT_NAME=network
+        ports:
+            - "3000:3000"
+        working_dir: 
+            /etc/shipper
+        volumes:
+            - ./shipper/:/etc/shipper
+            - ./start.sh:/etc/shipper/start.sh
+        command: sh start.sh
+        networks:
+            - loginet
+
+    transporter-backend:
+        image: nestjs/cli
+        environment: 
+            - COMPOSE_PROJECT_NAME=network
+        ports:
+            - "3001:3001"
+        working_dir: 
+            /etc/transporter
+        volumes:
+            - ./transporter:/etc/transporter
+            - ./start.sh:/etc/transporter/start.sh
+        command: sh start.sh
+        networks:
+            - loginet
+            
+    warehouse-backend:
+        image: nestjs/cli
+        environment: 
+            - COMPOSE_PROJECT_NAME=network
+        ports:
+            - "3002:3002"
+        working_dir: 
+            /etc/warehouse
+        volumes: 
+            - ./warehouse:/etc/warehouse
+            - ./start.sh:/etc/warehouse/start.sh
+        command: sh start.sh
+        networks:
+            - loginet
+
+    consignee-backend:
+        image: nestjs/cli        
+        environment: 
+            - COMPOSE_PROJECT_NAME=network
+        ports:
+            - "3003:3003"  
+        working_dir: 
+            /etc/consignee
+        volumes: 
+            - ./consignee:/etc/consignee
+            - ./start.sh:/etc/consignee/start.sh
+        command: sh start.sh
+        networks:
+            - loginet

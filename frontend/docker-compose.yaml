@@ -1,0 +1,23 @@
+version: "3"
+services:
+    shipper-frontend:
+        image: 
+        ports:
+            - "4200:4200"
+        volumes:
+
+
+    transporter-frontend:
+        image: 
+        ports:
+            - "4300:4300"
+
+    warehouse-frontend:
+        image: 
+        ports:
+            - "4300:4300"
+
+    consignee-frontend:
+        image: 
+        ports:
+            - "4300:4300"
