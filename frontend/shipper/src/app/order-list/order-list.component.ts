@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {OrderService} from '../services/order.service';
 import {stateMap} from '../common/common';
 
@@ -47,8 +47,8 @@ export class OrderListComponent implements OnInit {
             })
           }
           this.goodsList = elements;
-          this.acceptData = true;
           this.dataSource = new MatTableDataSource<PeriodicElement>(this.goodsList);
+          this.acceptData = true;
           this.dataSource.sort = this.sort;
         } catch (e) {
           this.acceptData = true;
@@ -65,4 +65,25 @@ export class OrderListComponent implements OnInit {
   onDetail() {
     console.log(`Detail`)
   }
+
+  // sortData(sort: Sort) {
+  //   const data = this.goodsList;
+  //   if (!sort.active || sort.direction == '') {
+  //     this.sortedData = data;
+  //   }
+  //   // @ts-ignore
+  //   this.sortedData = data.sort(function(a, b) {
+  //     const isAsc = sort.direction === 'asc';
+  //     switch (sort.active) {
+  //       case 'goods_id': return compare(a.goods_id, b.goods_id, isAsc);
+  //       case 'name': return compare(a.name, b.name, isAsc);
+  //       case 'status': return compare(a.status, b.status, isAsc);
+  //       default: return false;
+  //     }
+  //   });
+  // }
 }
+//
+// function compare(a: string, b: string, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }

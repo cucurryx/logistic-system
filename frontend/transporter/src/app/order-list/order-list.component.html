@@ -12,7 +12,7 @@
   </div>
 
 
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" *ngIf="acceptData">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [hidden]="!acceptData">
         <!-- Position Column -->
         <ng-container matColumnDef="goods_id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> 物品ID </th>
