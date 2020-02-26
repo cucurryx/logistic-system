@@ -32,10 +32,19 @@ startFrontend() {
     done
 }
 
+enrollAdmin() {
+    for org in shipper transporter warehouse consignee; do
+        pushd backend/$org
+            npm run enroll
+        popd
+    done
+}
+
 CMD=$1
 echo "./start.sh $CMD"
 if [ "$CMD" == "all" ]; then
     startNetwork
+    enrollAdmin
     startBackend
     startFrontend
 elif [ "$CMD" ==  "network" ]; then
@@ -44,6 +53,8 @@ elif [ "$CMD" == "backend" ]; then
     startBackend
 elif [ "$CMD" == "frontend" ]; then
     startFrontend
+elif [ "$CMD" == "enroll" ]; then
+    enrollAdmin
 else
     echo "args: all, network, backend or frontend"
 fi
