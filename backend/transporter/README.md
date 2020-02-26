@@ -1,23 +1,6 @@
 # 后端接口
 
-- POST /login 登陆接口
-```http request
-POST /login HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
 
-{
-	"username": "admin",
-	"password": "adminpw"
-}
-```
-
-```json
-{
-    "code": 200,
-    "message": "ok"
-}
-```
 - POST /api/transport/report 上报运输信息
 ```http request
 POST /api/transport/report HTTP/1.1
