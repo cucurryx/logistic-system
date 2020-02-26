@@ -3,6 +3,7 @@ package contract
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/golang/protobuf/ptypes/timestamp"
@@ -216,7 +217,8 @@ func (c *LogisticContract) PutState(ctx Context, key, value string) error {
 }
 
 func timestampToStr(ts *timestamp.Timestamp) string {
-	tm := time.Unix(ts.Seconds, 0)
-	tm.Add(time.Hour * 8) // 时区问题，修改到北京时间
-	return tm.Format("2006-01-02 03:04:05 PM")
+	timeStr := time.Unix(ts.Seconds, 0).UTC().Add(8 * time.Hour).Format(time.RFC3339)
+	result := strings.ReplaceAll(timeStr, "T", " ")
+	result = strings.ReplaceAll(result, "Z", " ")
+	return result
 }
