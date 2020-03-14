@@ -35,7 +35,7 @@ export class FabricClient {
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            return;
+            this.wallet.remove(username);
         }
         const enrollment = await ca.enroll({
             enrollmentID: username,
@@ -61,7 +61,7 @@ export class FabricClient {
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            return;
+            this.wallet.remove(username);
         }
 
         const adminIdentity = await this.wallet.get('admin');
