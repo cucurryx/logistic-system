@@ -1,8 +1,12 @@
-import { Controller, Body, Post, UseGuards } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, createParamDecorator } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Result } from './common/result';
 import { AuthService } from './auth/auth.service';
+
+export const User = createParamDecorator((data, req) => {
+  return req.user;
+});
 
 @Controller("api")
 export class AppController {
@@ -35,5 +39,11 @@ export class AppController {
   async logOut(@Body() body): Promise<Result> {
     const username = body.username;
     return await this.authService.logOut(username);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('curr')
+  async currUser(@User() user): Promise<Result> {
+    return {code: 200, message: 'ok', data: user.username};
   }
 }

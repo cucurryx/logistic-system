@@ -9,6 +9,7 @@ startNetwork() {
 startBackend() {
     for org in shipper transporter warehouse consignee; do
         pushd backend/$org
+        rm -rf wallet/
         nohup nest start &
         popd
     done
