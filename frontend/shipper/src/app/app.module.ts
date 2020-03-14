@@ -16,11 +16,15 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {LoginComponent, LoginFailDialog} from './login/login.component';
+import {RegisterComponent, RegisterFailDialog, RegisterSuccessDialog} from './register/register.component';
+import {MatIconModule} from '@angular/material/icon';
+import {httpInterceptorProviders} from './interceptors';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     OrderDetailComponent,
     InvalidDataDialog,
     CreateFailDialog,
-    CreateSuccessDialog
+    CreateSuccessDialog,
+    LoginComponent,
+    RegisterComponent,
+    LoginFailDialog,
+    RegisterSuccessDialog,
+    RegisterFailDialog
   ],
   imports: [
     BrowserModule,
@@ -50,9 +59,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatDialogModule,
     MatStepperModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
