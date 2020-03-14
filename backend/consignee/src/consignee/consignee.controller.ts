@@ -1,37 +1,48 @@
-import { Controller, Body, Post } from '@nestjs/common';
+import { Controller, Body, Post, createParamDecorator, UseGuards } from '@nestjs/common';
 import { Result } from '../common/result';
-import { receiveGoods } from '../application/receive_goods';
-import { getGoodsInfo } from '../application/get_goods_info';
-import { getGoodsHistory } from '../application/get_goods_history';
-import { getAllGoodsInfo } from '../application/get_all_goods_info';
+import { FabricClient } from 'src/application/fabric_client';
+import { AuthGuard } from '@nestjs/passport';
+
+export const User = createParamDecorator((data, req) => {
+  return req.user;
+});
 
 @Controller('api/consignee')
 export class ConsigneeController {
+  private fabricClient: FabricClient;
 
+  constructor() {
+    this.fabricClient = new FabricClient();
+  }
+  
+  @UseGuards(AuthGuard('jwt'))
   @Post("receive")
-  async receiveGoods(@Body() body): Promise<Result> {
+  async receiveGoods(@Body() body, @User() user): Promise<Result> {
     const goodsID = body.goodsID;
     if (goodsID == undefined) {
       return {code:10001, message: "goodsID needed"};
     }
     console.log(`receiveGoods with: ${goodsID}`);
     try {
-      await receiveGoods('admin', goodsID);
+      const username = user.username;
+      await this.fabricClient.receiveGoods(username, goodsID);
       return {code:200, message: 'ok'};
     } catch (e) {
       return {code: 500, message: `${e}`};
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post("get_info")
-  async getGoodsState(@Body() body): Promise<Result> {
+  async getGoodsState(@Body() body, @User() user): Promise<Result> {
     const goodsID = body.goodsID;
     if (goodsID == undefined) {
       return {code:10001, message: "goodsID needed"};
     }
     console.log(`getGoodsState with id: ${goodsID}`);
     try {
-      const buffer = await getGoodsInfo('admin', goodsID);
+      const username = user.username;
+      const buffer = await this.fabricClient.getGoodsInfo(username, goodsID);
       const response = JSON.parse(buffer.toString());
       return {code: 200, message: "ok", data: response};
     } catch (e) {
@@ -39,15 +50,17 @@ export class ConsigneeController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post("get_history")
-  async getGoodsHistory(@Body() body): Promise<Result> {
+  async getGoodsHistory(@Body() body, @User() user): Promise<Result> {
     const goodsID = body.goodsID;
     if (goodsID == undefined) {
       return {code: 10001, message: "goodsID needed"};
     }
     console.log(`getGoodsHistory with id: ${goodsID}`);
     try {
-      const buffer = await getGoodsHistory('admin', goodsID);
+      const username = user.username;
+      const buffer = await this.fabricClient.getGoodsHistory(username, goodsID);
       const response = JSON.parse(buffer.toString());
       return {code: 200, message: "ok", data: response};
     } catch (e) {
@@ -55,11 +68,13 @@ export class ConsigneeController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post("get_all_goods")
-  async getAllGoodsInfo(): Promise<Result> {
+  async getAllGoodsInfo(@User() user): Promise<Result> {
     console.log(`getAllGoodsInfo`);
     try {
-      const buffer = await getAllGoodsInfo('admin');
+      const username = user.username;
+      const buffer = await this.fabricClient.getAllGoodsInfo(username);
       const response = JSON.parse(buffer.toString());
       return {code: 200, message: "ok", data: response};
     } catch (e) {

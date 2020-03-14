@@ -13,7 +13,7 @@ export const User = createParamDecorator((data, req) => {
 export class OrderController {
     private fabricClient: FabricClient;
 
-    constructor(private orderService: OrderService) {
+    constructor() {
       this.fabricClient = new FabricClient();
     }
 
