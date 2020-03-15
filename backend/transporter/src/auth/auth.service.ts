@@ -15,6 +15,7 @@ export class AuthService {
         await this.fabricClient.enroll(username, pass);
         return { username: username, password: pass };
       } catch (error) {
+        console.log(`error: ${error}`);
         return null;
       }
     }

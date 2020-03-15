@@ -1,8 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { Wallets, Wallet, Identity, Gateway, Contract, X509Identity } from 'fabric-network';
-import { ReportTransportRequest } from '../common/request';
 import * as FabricCAServices from 'fabric-ca-client';
+import { ReportTransportRequest } from 'src/common/request';
 
 const channelName = "logistic-channel";
 const contractName = "logistic";
@@ -29,39 +29,42 @@ export class FabricClient {
     }
 
     async enroll(username: string, password: string) {
-        const caInfo = this.ccp.certificateAuthorities['ca.shipper.logistic.com'];
+        const caInfo = this.ccp.certificateAuthorities['ca.transporter.logistic.com'];
         const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
-        
+
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
+
         const enrollment = await ca.enroll({
             enrollmentID: username,
             enrollmentSecret: password
         });
+
         const x509Identity: X509Identity = {
             credentials: {
                 certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
             },
-            mspId: 'ShipperMSP',
+            mspId: 'TransporterMSP',
             type: 'X.509',
         };
+        
         await this.wallet.put(username, x509Identity);
         this.identities.set(username, x509Identity);
         console.log("identity for admin put to wallet successfully");
     }
 
     async register(username: string, password: string) {
-        const caInfo = this.ccp.certificateAuthorities['ca.shipper.logistic.com'];
+        const caInfo = this.ccp.certificateAuthorities['ca.transporter.logistic.com'];
         const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
 
         const adminIdentity = await this.wallet.get('admin');
@@ -72,11 +75,12 @@ export class FabricClient {
 
         const provider = this.wallet.getProviderRegistry().getProvider(adminIdentity.type);
         const adminUser = await provider.getUserContext(adminIdentity, 'admin');
- 
+        
         const secret = await ca.register({
             affiliation: 'org1.department1',
             enrollmentID: username, 
             enrollmentSecret: password,
+            maxEnrollments: 100,
             role: 'client'
         }, adminUser);
         console.log(`identity for ${username} register successfully, password: ${secret}`);
@@ -87,7 +91,7 @@ export class FabricClient {
             this.identities.delete(username);
         }
         if (await this.wallet.get(username)) {
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
     }
 
@@ -98,6 +102,7 @@ export class FabricClient {
         const response = await contract.submitTransaction('putTransportInfo', jsonStr);
         return response;
     }
+
     async getAllGoodsInfo(username: string) {
         await this.checkIdentity(username);
         const contract = await this.getContract(username);

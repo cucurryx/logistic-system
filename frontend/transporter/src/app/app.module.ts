@@ -7,7 +7,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import {CreateFailDialog, CreateSuccessDialog, TransportReportComponent} from './transport-report/transport-report.component';
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import {CurrentUserDialog, HeaderComponent} from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -24,6 +24,9 @@ import { FormsModule } from '@angular/forms';
 import {MatSortModule} from '@angular/material/sort';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatNativeDateModule} from '@angular/material/core';
+import {LoginComponent, LoginFailDialog} from './login/login.component';
+import {RegisterComponent, RegisterFailDialog, RegisterSuccessDialog} from './register/register.component';
+import {httpInterceptorProviders} from './interceptors';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,13 @@ import {MatNativeDateModule} from '@angular/material/core';
     FooterComponent,
     HeaderComponent,
     CreateFailDialog,
-    CreateSuccessDialog
+    CreateSuccessDialog,
+    LoginComponent,
+    RegisterComponent,
+    LoginFailDialog,
+    RegisterFailDialog,
+    RegisterSuccessDialog,
+    CurrentUserDialog
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

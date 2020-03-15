@@ -6,9 +6,15 @@
 </div>
   <div></div>
   <div>
-    <button mat-raised-button	color="accent" routerLink="report" *ngIf="shouldDisplayCreateButton()">
-      上报运输信息
-    </button>
+      <button mat-raised-button	color="accent" routerLink="report" *ngIf="shouldDisplayCreateButton()">
+        上报运输信息
+      </button>
+      <button mat-button color="primary"></button>
+      <button mat-raised-button color="accent" *ngIf="shouldDisplayCreateButton()" (click)="logOut()">
+        退出登录
+      </button>
   </div>
-  <div></div>
+  <div>
+    <button mat-button *ngIf="shouldDisplayCreateButton()" (click)="onCurrUser()"> 查看当前用户 </button>
+  </div>
 </mat-toolbar>

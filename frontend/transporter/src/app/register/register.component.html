@@ -1,0 +1,30 @@
+<div class="registerBox">
+  <div></div>
+  <div class="inputBox">
+    <form [formGroup]="form">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <span>创建账号</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input type="text" matInput placeholder="用户名" formControlName="username">
+            <mat-error>请填写用户名</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="password" matInput placeholder="密码" formControlName="password">
+            <mat-error>请填写密码</mat-error>
+          </mat-form-field>
+          <div style="display: flex; justify-content: space-between">
+            <div></div>
+            <button mat-flat-button color="accent" (click)="onSubmit()" [disabled]="!form.valid">确认创建</button>
+            <div></div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+  <div></div>
+</div>
