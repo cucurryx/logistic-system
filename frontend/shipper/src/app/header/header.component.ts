@@ -1,6 +1,5 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {OrderCreateComponent} from '../order-create/order-create.component';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AppRoutingModule} from '../app-routing.module';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
@@ -12,16 +11,12 @@ import {AuthService} from '../services/auth.service';
   providers: [ AppRoutingModule, AuthService ]
 })
 export class HeaderComponent implements OnInit {
-  createButton: boolean;
-  currUser: string;
 
   constructor(private route: Router,
-            private authService: AuthService) {
-    this.createButton = true;
+            private authService: AuthService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.getCurrUser();
   }
 
   shouldDisplayCreateButton() {
@@ -34,9 +29,22 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  getCurrUser() {
+  onCurrUser() {
+    this.dialog.open(CurrentUserDialog);
+  }
+}
+
+@Component({
+  selector: 'current-user-dialog',
+  templateUrl: 'current-user-dialog.html',
+})
+export class CurrentUserDialog {
+  currUser: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<CurrentUserDialog>,
+    private authService: AuthService) {
     this.loadCurrUser();
-    return this.currUser;
   }
 
   loadCurrUser() {
@@ -45,8 +53,12 @@ export class HeaderComponent implements OnInit {
         this.currUser = (r as any).data;
       },
       e => {
-        this.currUser= '出现未知错误';
+        this.currUser= '';
       }
     );
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import {OrderListComponent, ReceiveFailDialog, ReceiveSuccessDialog} from './order-list/order-list.component';
-import { HeaderComponent } from './header/header.component';
+import {CurrentUserDialog, HeaderComponent} from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -20,6 +20,10 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {RegisterComponent, RegisterFailDialog, RegisterSuccessDialog} from './register/register.component';
+import {LoginComponent, LoginFailDialog} from './login/login.component';
+import {httpInterceptorProviders} from './interceptors';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HeaderComponent,
     FooterComponent,
     ReceiveFailDialog,
-    ReceiveSuccessDialog
+    ReceiveSuccessDialog,
+    RegisterComponent,
+    LoginComponent,
+    LoginFailDialog,
+    RegisterSuccessDialog,
+    RegisterFailDialog,
+    CurrentUserDialog
   ],
   imports: [
     BrowserModule,
@@ -46,9 +56,12 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatStepperModule,
     MatCardModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

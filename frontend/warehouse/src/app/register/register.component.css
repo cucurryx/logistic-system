@@ -1,0 +1,17 @@
+.registerBox {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  width: 30%;
+  height: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}

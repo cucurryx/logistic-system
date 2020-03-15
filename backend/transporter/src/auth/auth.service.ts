@@ -29,6 +29,9 @@ export class AuthService {
 
     async register(username: string, password: string) {
       try {
+        if (username == 'admin') {
+          return {code: 500, message: `can't register admin`};
+        }
         await this.fabricClient.register(username, password);
         return {code: 200, message: 'ok'};
       } catch (error) {

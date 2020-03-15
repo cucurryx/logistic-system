@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {OrderListComponent} from './order-list/order-list.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
-
+import { AuthService } from './services/auth.service';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'orders', pathMatch: 'full' },
-  { path: 'orders', component: OrderListComponent },
-  { path: 'detail/:id', component: OrderDetailComponent },
+  { path: '', redirectTo: 'orders', pathMatch: 'full', canActivate: [AuthService] },
+  { path: 'orders', component: OrderListComponent, canActivate: [AuthService] },
+  { path: 'detail/:id', component: OrderDetailComponent, canActivate: [AuthService] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({

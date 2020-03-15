@@ -29,13 +29,13 @@ export class FabricClient {
     }
 
     async enroll(username: string, password: string) {
-        const caInfo = this.ccp.certificateAuthorities['ca.shipper.logistic.com'];
+        const caInfo = this.ccp.certificateAuthorities['ca.warehouse.logistic.com'];
         const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
         const enrollment = await ca.enroll({
             enrollmentID: username,
@@ -46,7 +46,7 @@ export class FabricClient {
                 certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
             },
-            mspId: 'ShipperMSP',
+            mspId: 'WarehouseMSP',
             type: 'X.509',
         };
         await this.wallet.put(username, x509Identity);
@@ -55,13 +55,13 @@ export class FabricClient {
     }
 
     async register(username: string, password: string) {
-        const caInfo = this.ccp.certificateAuthorities['ca.shipper.logistic.com'];
+        const caInfo = this.ccp.certificateAuthorities['ca.warehouse.logistic.com'];
         const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
 
         const adminIdentity = await this.wallet.get('admin');
@@ -77,7 +77,8 @@ export class FabricClient {
             affiliation: 'org1.department1',
             enrollmentID: username, 
             enrollmentSecret: password,
-            role: 'client'
+            role: 'client',
+            maxEnrollments: 100
         }, adminUser);
         console.log(`identity for ${username} register successfully, password: ${secret}`);
     }
@@ -87,7 +88,7 @@ export class FabricClient {
             this.identities.delete(username);
         }
         if (await this.wallet.get(username)) {
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
     }
 

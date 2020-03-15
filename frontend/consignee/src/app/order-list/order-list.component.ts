@@ -84,8 +84,6 @@ export class OrderListComponent implements OnInit {
   }
 }
 
-
-
 @Component({
   selector: 'receive-fail-dialog',
   templateUrl: 'receive-fail-dialog.html',

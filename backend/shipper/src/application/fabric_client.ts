@@ -35,7 +35,7 @@ export class FabricClient {
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
         const enrollment = await ca.enroll({
             enrollmentID: username,
@@ -61,7 +61,7 @@ export class FabricClient {
         
         if (await this.wallet.get(username)) {
             console.log(`identity for ${username} already exist`);
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
 
         const adminIdentity = await this.wallet.get('admin');
@@ -77,7 +77,8 @@ export class FabricClient {
             affiliation: 'org1.department1',
             enrollmentID: username, 
             enrollmentSecret: password,
-            role: 'client'
+            role: 'client',
+            maxEnrollments: 100    
         }, adminUser);
         console.log(`identity for ${username} register successfully, password: ${secret}`);
     }
@@ -87,7 +88,7 @@ export class FabricClient {
             this.identities.delete(username);
         }
         if (await this.wallet.get(username)) {
-            this.wallet.remove(username);
+            await this.wallet.remove(username);
         }
     }
 

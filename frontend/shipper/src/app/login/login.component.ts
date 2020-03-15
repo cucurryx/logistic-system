@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
 
   onAdmin() {
     const username = this.form.getRawValue().username;
-    const password = this.form.getRawValue().password;
     if (username != 'admin') {
       this.dialog.open(LoginFailDialog);
     } else {
@@ -76,7 +75,7 @@ export class LoginComponent implements OnInit {
 export class LoginFailDialog {
 
   constructor(
-    public dialogRef: MatDialogRef<CreateFailDialog>) {}
+    public dialogRef: MatDialogRef<LoginFailDialog>) {}
 
   onNoClick(): void {
     this.dialogRef.close();

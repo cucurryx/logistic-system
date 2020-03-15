@@ -61,7 +61,6 @@ export class WarehouseReportComponent implements OnInit {
   }
 }
 
-
 export class WarehouseReport {
   goods_id: string;
   storage_position: StoragePosition;
@@ -74,8 +73,6 @@ export class StoragePosition {
   self_id: string;
   position: string;
 }
-
-
 
 @Component({
   selector: 'create-fail-dialog',
@@ -99,7 +96,7 @@ export class CreateFailDialog {
 export class CreateSuccessDialog {
 
   constructor(
-    public dialogRef: MatDialogRef<CreateFailDialog>) {}
+    public dialogRef: MatDialogRef<CreateSuccessDialog>) {}
 
   onNoClick(): void {
     this.dialogRef.close();

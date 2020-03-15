@@ -1,20 +1,20 @@
 <mat-toolbar color="primary" class="box">
-<div>
-  <button mat-button routerLink="/">
-  Logistic Manage System
-  </button>
-</div>
+  <div>
+    <button mat-button routerLink="/">
+      Logistic Manage System
+    </button>
+  </div>
   <div></div>
   <div>
-      <button mat-raised-button	color="accent" routerLink="create" *ngIf="shouldDisplayCreateButton()">
-        创建订单
-      </button>
-      <button mat-button color="primary"></button>
-      <button mat-raised-button color="accent" *ngIf="shouldDisplayCreateButton()" (click)="logOut()">
-        退出登录
-      </button>
+    <button mat-raised-button color="accent" routerLink="create" *ngIf="shouldDisplayCreateButton()">
+      创建订单
+    </button>
+    <button mat-button color="primary"></button>
+    <button mat-raised-button color="accent" *ngIf="shouldDisplayCreateButton()" (click)="logOut()">
+      退出登录
+    </button>
   </div>
   <div>
-    <button mat-button *ngIf="shouldDisplayCreateButton()"> 当前用户: {{getCurrUser()}} </button>
+    <button mat-button *ngIf="shouldDisplayCreateButton()" (click)="onCurrUser()"> 查看当前用户 </button>
   </div>
 </mat-toolbar>

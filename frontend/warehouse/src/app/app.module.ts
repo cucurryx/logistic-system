@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import {CurrentUserDialog, HeaderComponent} from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
@@ -23,6 +23,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {LoginComponent, LoginFailDialog} from './login/login.component';
+import {RegisterComponent, RegisterFailDialog, RegisterSuccessDialog} from './register/register.component';
+import {httpInterceptorProviders} from './interceptors';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,13 @@ import {MatNativeDateModule} from '@angular/material/core';
     OrderDetailComponent,
     WarehouseReportComponent,
     CreateFailDialog,
-    CreateSuccessDialog
+    CreateSuccessDialog,
+    LoginComponent,
+    RegisterComponent,
+    CurrentUserDialog,
+    LoginFailDialog,
+    RegisterFailDialog,
+    RegisterSuccessDialog
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

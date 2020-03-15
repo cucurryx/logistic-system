@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import {CurrentUserDialog, HeaderComponent} from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import {CreateFailDialog, CreateSuccessDialog, InvalidDataDialog, OrderCreateComponent} from './order-create/order-create.component';
@@ -41,7 +41,8 @@ import {httpInterceptorProviders} from './interceptors';
     RegisterComponent,
     LoginFailDialog,
     RegisterSuccessDialog,
-    RegisterFailDialog
+    RegisterFailDialog,
+    CurrentUserDialog
   ],
   imports: [
     BrowserModule,
