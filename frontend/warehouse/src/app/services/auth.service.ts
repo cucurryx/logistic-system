@@ -21,7 +21,7 @@ export class AuthService implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> | boolean {
-    if (document.cookie.indexOf('token=') > -1) {
+    if (document.cookie.indexOf('warehouse_token=') > -1) {
       return true;
     } else {
       this.router.navigate(['/login']).then(r => console.log(`${r}`));
@@ -47,7 +47,7 @@ export class AuthService implements CanActivate {
   }
 
   setToken(t: string) {
-    document.cookie = `token=${t}`;
+    document.cookie = `warehouse_token=${t}`;
     this.httpOptions.headers.set('Authorization', 'Bear ' + t);
   }
 
@@ -60,14 +60,16 @@ export class AuthService implements CanActivate {
     let token = '';
     if (document.cookie) {
       let arr_cookie = document.cookie.split(';');
-      let str_cookie_token = arr_cookie.filter(item => item.indexOf('token=') > -1);
-      token = str_cookie_token[0].split('=')[1]
+      let str_cookie_token = arr_cookie.filter(item => item.indexOf('warehouse_token=') > -1);
+      if (str_cookie_token.length > 0) {
+        token = str_cookie_token[0].split('=')[1]
+      }    
     } else {}
     return token;
   }
 
   removeToken() {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "warehouse_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   }
 
   private static handleError(error: HttpErrorResponse) {

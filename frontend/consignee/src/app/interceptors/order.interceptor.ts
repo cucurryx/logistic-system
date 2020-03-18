@@ -24,9 +24,13 @@ export class OrderInterceptor implements HttpInterceptor {
     let token = '';
     if (document.cookie) {
       let arr_cookie = document.cookie.split(';');
-      let str_cookie_token = arr_cookie.filter(item => item.indexOf('token=') > -1);
-      token = str_cookie_token[0].split('=')[1]
+      let str_cookie_token = arr_cookie.filter(item => item.indexOf('consignee_token=') > -1);
+      if (str_cookie_token.length > 0) {
+        console.log(`${str_cookie_token}`);
+        token = str_cookie_token[0].split('=')[1]
+      }
     } else {}
+    console.log(`getToken ${token}`);
     return token;
   }
 }
