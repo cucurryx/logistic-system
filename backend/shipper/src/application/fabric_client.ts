@@ -8,7 +8,8 @@ const channelName = "logistic-channel";
 const contractName = "logistic";
 
 export class FabricClient {
-    
+
+    storage: Storage;
     wallet: Wallet;
     ccp: any;
     identities: Map<string, Identity>;
@@ -26,6 +27,7 @@ export class FabricClient {
         this.identities = new Map();
         this.contracts = new Map();
         this.gateways = new Map();
+        this.storage = new Storage();
     }
 
     async enroll(username: string, password: string) {

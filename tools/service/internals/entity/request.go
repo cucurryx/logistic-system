@@ -1,0 +1,5 @@
+package entity
+
+type CreateOrderRequest OrderCreate
+type PutTransportInfoRequest TransportInfo
+type PutWarehouseInfoRequest WarehouseInfo
