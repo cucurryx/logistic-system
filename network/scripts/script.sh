@@ -79,6 +79,8 @@ putState() {
 
 ####################### commands ########################
 
+# FABRIC_CFG_PATH=$PWD/config/
+
 ## create channel
 echo
 echo "create channel..."

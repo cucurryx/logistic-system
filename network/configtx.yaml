@@ -39,7 +39,7 @@ Organizations:
     - &Shipper
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Shipper
+        Name: ShipperMSP
 
         # ID to load the MSP definition as
         ID: ShipperMSP
@@ -74,7 +74,7 @@ Organizations:
     - &Transporter
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Transporter
+        Name: TransporterMSP
 
         # ID to load the MSP definition as
         ID: TransporterMSP
@@ -109,7 +109,7 @@ Organizations:
     - &Warehouse
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Warehouse
+        Name: WarehouseMSP
 
         # ID to load the MSP definition as
         ID: WarehouseMSP
@@ -144,7 +144,7 @@ Organizations:
     - &Consignee
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Consignee
+        Name: ConsigneeMSP
 
         # ID to load the MSP definition as
         ID: ConsigneeMSP
