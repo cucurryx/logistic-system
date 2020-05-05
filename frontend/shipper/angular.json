@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "shipper"
+  "defaultProject": "shipper",
+  "cli": {
+    "analytics": false
+  }
 }

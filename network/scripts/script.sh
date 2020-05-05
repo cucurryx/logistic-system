@@ -49,6 +49,16 @@ joinChannel() {
 	done
 }
 
+updateAnchorPeers() {
+	for org in shipper transporter warehouse consignee
+	do
+		setGlobals $org
+		echo "===================== Org $org updating anchor peer ===================== "
+		peer channel update -o orderer.logistic.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls --cafile $ORDERER_CA
+		echo "===================== Anchor peer updated ===================== "
+	done
+}
+
 getState() {
 	CC_NAME=logistic
 	setGlobals shipper
@@ -78,6 +88,11 @@ createChannel
 echo
 echo "join channel..."
 joinChannel
+
+## update anchor peers
+echo
+echo "updating anchor peers"
+updateAnchorPeers
 
 ## chaincode set up
 echo

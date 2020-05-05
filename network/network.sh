@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # global variables
-IMAGE_TAG="2.0"
+IMAGE_TAG="latest"
 CHANNEL_NAME="logistic-channel"
 COMPOSE_FILE=docker-compose.yaml
 CA_COMPOSE_FILE=docker-compose-ca.yaml
@@ -45,7 +45,7 @@ generateChannelArtifacts() {
     echo
 
     for orgmsp in Shipper Transporter Warehouse Consignee; do
-        configtxgen -profile LogisticChannel -outputAnchorPeersUpdate ./channel-artifacts/${orgmsp}anchors.tx -channelID $CHANNEL_NAME -asOrg ${orgmsp}
+        configtxgen -profile LogisticChannel -outputAnchorPeersUpdate ./channel-artifacts/${orgmsp}MSPanchors.tx -channelID $CHANNEL_NAME -asOrg ${orgmsp}
     done
 }
 

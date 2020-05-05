@@ -13,6 +13,8 @@ OrdererOrgs:
     # ---------------------------------------------------------------------------
     Specs:
       - Hostname: orderer
+        SANS:
+          - localhost
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
@@ -26,6 +28,8 @@ PeerOrgs:
     EnableNodeOUs: true
     Template:
       Count: 1
+      SANS:
+        - localhost
     Users:
       Count: 1
 
@@ -37,6 +41,8 @@ PeerOrgs:
     EnableNodeOUs: true
     Template:
       Count: 1
+      SANS:
+        - localhost
     Users:
       Count: 1
 
@@ -45,6 +51,8 @@ PeerOrgs:
     EnableNodeOUs: true
     Template:
       Count: 1
+      SANS:
+        - localhost
     Users:
       Count: 1
 
@@ -53,5 +61,7 @@ PeerOrgs:
     EnableNodeOUs: true
     Template:
       Count: 1
+      SANS:
+        - localhost
     Users:
       Count: 1
