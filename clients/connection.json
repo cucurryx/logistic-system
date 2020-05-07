@@ -1,0 +1,49 @@
+{
+    "name": "logistic-network-shipper",
+    "version": "1.0.0",
+    "client": {
+      "organization": "shipper",
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": 300
+          }
+        }
+      }
+    },
+    "organizations": {
+      "shipper": {
+        "mspid": "ShipperMSP",
+        "peers": [
+          "peer0.shipper.logistic.com"
+        ],
+        "certificateAuthorities": [
+          "ca.shipper.logistic.com"
+        ]
+      }
+    },
+    "peers": {
+      "peer0.shipper.logistic.com": {
+        "url": "grpcs://localhost:7051",
+        "tlsCACerts": {
+          "path": "../network/crypto-config/peerOrganizations/shipper.logistic.com/tlsca/tlsca.shipper.logistic.com-cert.pem"
+        },
+        "grpcOptions": {
+          "ssl-target-name-override": "peer0.shipper.logistic.com",
+          "hostnameOverride": "peer0.shipper.logistic.com"
+        }
+      }
+    },
+    "certificateAuthorities": {
+      "ca.shipper.logistic.com": {
+        "url": "https://localhost:7054",
+        "caName": "ca-shipper",
+        "tlsCACerts": {
+            "path": "../network/crypto-config/peerOrganizations/shipper.logistic.com/ca/ca.shipper.logistic.com-cert.pem"
+        },
+        "httpOptions": {
+          "verify": false
+        }
+      }
+    }
+  }

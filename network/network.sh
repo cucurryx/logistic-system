@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # global variables
-IMAGE_TAG="latest"
+IMAGE_TAG="2.1.0"
 CHANNEL_NAME="logistic-channel"
 COMPOSE_FILE=docker-compose.yaml
 CA_COMPOSE_FILE=docker-compose-ca.yaml

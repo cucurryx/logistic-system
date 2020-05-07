@@ -1,0 +1,15 @@
+{
+  "name": "clients",
+  "version": "1.0.0",
+  "description": "",
+  "main": "createNewOrder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fabric-ca-client": "^2.1.0",
+    "fabric-network": "^2.1.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

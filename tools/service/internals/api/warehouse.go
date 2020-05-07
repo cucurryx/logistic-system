@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"service/internals/entity"
@@ -12,41 +13,28 @@ func PutWarehouseInfo(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
-	storage := Storage();
-	if _, err := storage.GetStateByKey(req.GoodsID); err != nil {
-		ctx.JSON(http.StatusOK, gin.H{})
+	storage := Storage()
+	data, err := storage.GetStateByKey(req.GoodsID)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{"error": "can't get goods"})
+		return
 	}
-	Storage().PutStateByKey(req.GoodsID, )
-}
+	var goodsState entity.GoodsState
+	if err := json.Unmarshal([]byte(data.Value()), &goodsState); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{"error": "unmarshal failed"})
+		return
+	}
+	if goodsState.State != entity.TRANSPORTING {
+		ctx.JSON(http.StatusOK, gin.H{"error": "goods' state is TRANSPORTING"})
+		return
+	}
 
-// 仓储信息录入接口
-//func (c *LogisticContract) PutWarehouseInfo(ctx Context, requestData string) error {
-//	var request PutWarehouseInfoRequest
-//	if err := json.Unmarshal([]byte(requestData), &request); err != nil {
-//		return fmt.Errorf("put warehouse info failed when unmarshal request data, err: %+v", err)
-//	}
-//
-//	data, err := ctx.GetStub().GetState(request.GoodsID)
-//	if err != nil {
-//		return fmt.Errorf("PutWarehouseInfo GetState failed with id: %s, err: %+v", request.GoodsID, err)
-//	}
-//
-//	var goodsState GoodsState
-//	if err := json.Unmarshal(data, &goodsState); err != nil {
-//		return fmt.Errorf("PutTransportInfo unmarshal failed, data: %+v, err: %+v", data, err)
-//	}
-//
-//	if goodsState.State != TRANSPORTING {
-//		return fmt.Errorf("goods' state is TRANSPORTING")
-//	}
-//
-//	warehouseInfo := WarehouseInfo(request)
-//	goodsState.SetWarehousing(&warehouseInfo)
-//
-//	data, err = json.Marshal(goodsState)
-//	if err != nil {
-//		return fmt.Errorf("json marshal failed, err: %+v", err)
-//	}
-//	return ctx.GetStub().PutState(request.GoodsID, data)
-//}
+	warehouseInfo := entity.WarehouseInfo(req)
+	goodsState.SetWarehousing(&warehouseInfo)
+	jsonStr, err := json.Marshal(goodsState)
+	if err := Storage().PutStateByKey(req.GoodsID, string(jsonStr)); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{"error": "putStateByKey failed"})
+	}
+	ctx.JSON(http.StatusOK, gin.H{"message": "ok"})
+}
 
