@@ -38,7 +38,7 @@ async function main() {
         const contract = network.getContract('logistic');
 
         const response = await contract.evaluateTransaction('getAllGoodsInfo');
-        console.log(`response: ${string(response)}`);
+        console.log(`response: ${response}`);
 
         await gateway.disconnect();
 

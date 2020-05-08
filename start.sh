@@ -2,22 +2,27 @@
 
 startNetwork() {
     pushd network
-    nohup ./network.sh restart &
+    ./network.sh restart
     popd
 }
 
 startBackend() {
     for org in shipper transporter warehouse consignee; do
+        echo "starting backend... $org" 
         pushd backend/$org
         rm -rf wallet/
-        nohup nest start &
+        rm -rf nohup.out
+        nohup node dist/main.js &
         popd
+        echo "done..."
     done
 }
 
 startFrontend() {
     for org in shipper transporter warehouse consignee; do
+        echo "starting frontend... $org"
         pushd frontend/$org
+        rm -rf nohup.out
         PORT=4200
         if [ "$org" == "shipper" ]; then
             PORT=4200
@@ -28,8 +33,9 @@ startFrontend() {
         else 
             PORT=4500
         fi
-        nohup ng serve --proxy-config proxy.config.json --port $PORT &
+        nohup ng serve --host 127.0.0.1 --proxy-config proxy.config.json --port $PORT &
         popd
+        echo "done..."
     done
 }
 

@@ -37,7 +37,7 @@ async function main() {
         // Get the contract from the network.
         const contract = network.getContract('logistic');
 
-        request = {
+        const request = {
             id: '1',
             name: '货物1',
             source: '武汉市华中师范大学',
