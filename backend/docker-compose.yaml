@@ -1,8 +1,5 @@
 version: "2"
 
-networks:
-    loginet:
-
 services:
     shipper-backend:
         image: node:12.16.3
@@ -11,10 +8,9 @@ services:
         volumes:
             - ./shipper:/etc/shipper
         command: node dist/main.js
+        network_mode: "host"
         ports:
             - 3000:3000
-        networks:
-            - loginet
 
     transporter-backend:
         image: node:12.16.3
@@ -23,10 +19,9 @@ services:
         volumes:
             - ./transporter:/etc/transporter
         command: node dist/main.js
+        network_mode: "host"
         ports:
             - 3001:3001
-        networks:
-            - loginet
 
     warehouse-backend:
         image: node:12.16.3
@@ -35,10 +30,9 @@ services:
         volumes:
             - ./warehouse:/etc/warehouse
         command: node dist/main.js
+        network_mode: "host"
         ports:
             - 3002:3002
-        networks:
-            - loginet
 
     consignee-backend:
         image: node:12.16.3
@@ -47,7 +41,6 @@ services:
         volumes:
             - ./consignee:/etc/consignee
         command: node dist/main.js
+        network_mode: "host"
         ports:
             - 3003:3003
-        networks:
-            - loginet
