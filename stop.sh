@@ -8,16 +8,15 @@ stopNetwork() {
 
 stopBackend() {
     echo "killing...."
-    ps -aux | grep "node /usr/local/bin/nest start"
-    echo
-    kill -9 `ps -aux | grep "node /usr/local/bin/nest start" | awk '{print $2}'`
+    pids=$(docker ps -a  | grep "node.12.16.3")
+    docker-compose -f ./backend/docker-compose.yaml down --volumes --remove-orphans
+    echo 'done'
 }
 
 stopFrontend() {
     echo "killing...."
-    ps -aux | grep "ng serve --host"
-    echo
-    kill -9 `ps -aux | grep "ng serve --host" | awk '{print $2}'`
+    nginx -s stop
+    echo 'done'
 }
 
 CMD=$1

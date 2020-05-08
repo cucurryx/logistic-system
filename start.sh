@@ -7,36 +7,19 @@ startNetwork() {
 }
 
 startBackend() {
-    for org in shipper transporter warehouse consignee; do
-        echo "starting backend... $org" 
-        pushd backend/$org
-        rm -rf wallet/
-        rm -rf nohup.out
-        nohup node dist/main.js &
-        popd
-        echo "done..."
-    done
+    echo 'starting backend...'
+    docker-compose -f ./backend/docker-compose.yaml up -d
+    echo 'done'
 }
 
 startFrontend() {
-    for org in shipper transporter warehouse consignee; do
-        echo "starting frontend... $org"
-        pushd frontend/$org
-        rm -rf nohup.out
-        PORT=4200
-        if [ "$org" == "shipper" ]; then
-            PORT=4200
-        elif [ "$org" == "transporter" ]; then
-            PORT=4300
-        elif [ "$org" == "warehouse" ]; then
-            PORT=4400
-        else 
-            PORT=4500
-        fi
-        nohup ng serve --host 127.0.0.1 --proxy-config proxy.config.json --port $PORT &
-        popd
-        echo "done..."
-    done
+    echo 'starting frontend...'
+    cp ./nginx/nginx.conf /usr/share/nginx
+    echo 'stopping nginx'
+    nginx -s stop
+    echo 'restarting nginx'
+    nginx -c /usr/share/nginx/nginx.conf
+    echo 'done'
 }
 
 enrollAdmin() {

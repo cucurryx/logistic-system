@@ -1,0 +1,53 @@
+version: "2"
+
+networks:
+    loginet:
+
+services:
+    shipper-backend:
+        image: node:12.16.3
+        container_name: shipper-backend
+        working_dir: /etc/shipper
+        volumes:
+            - ./shipper:/etc/shipper
+        command: node dist/main.js
+        ports:
+            - 3000:3000
+        networks:
+            - loginet
+
+    transporter-backend:
+        image: node:12.16.3
+        container_name: transporter-backend
+        working_dir: /etc/transporter
+        volumes:
+            - ./transporter:/etc/transporter
+        command: node dist/main.js
+        ports:
+            - 3001:3001
+        networks:
+            - loginet
+
+    warehouse-backend:
+        image: node:12.16.3
+        container_name: warehouse-backend
+        working_dir: /etc/warehouse
+        volumes:
+            - ./warehouse:/etc/warehouse
+        command: node dist/main.js
+        ports:
+            - 3002:3002
+        networks:
+            - loginet
+
+    consignee-backend:
+        image: node:12.16.3
+        container_name: consignee-backend
+        working_dir: /etc/consignee
+        volumes:
+            - ./consignee:/etc/consignee
+        command: node dist/main.js
+        ports:
+            - 3003:3003
+        networks:
+            - loginet
