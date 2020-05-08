@@ -1,30 +1,43 @@
 #! /bin/bash
 
-buildBackend() {
+buildFrontend() {
+    echo 'building frontend...'
+
     for org in shipper transporter warehouse consignee; do
-        echo "building backend... $org" 
-        pushd backend/$org
-        npm run build
+        echo "building [$org] frontend..." 
+        pushd frontend/$org
+
+        rm package-lock.json
+        rm -rf node_modules/
+        npm install
+        ng build --prod
+
         popd
         echo "done..."
     done
+
+    echo 'copy frontend resources to nginx...'
+    for org in shipper transporter warehouse consignee; do
+        echo "copy [$org] frontend..." 
+        cp -r frontend/$org/dist/$org /usr/share/nginx/html/
+        echo "done..."
+    done
+
+    echo
 }
 
-buildFrontend() {
+buildBackend() {
+    echo 'building backend...'
+
     for org in shipper transporter warehouse consignee; do
-        echo "starting frontend... $org"
-        pushd frontend/$org
-        PORT=4200
-        if [ "$org" == "shipper" ]; then
-            PORT=4200
-        elif [ "$org" == "transporter" ]; then
-            PORT=4300
-        elif [ "$org" == "warehouse" ]; then
-            PORT=4400
-        else 
-            PORT=4500
-        fi
-        nohup ng serve --host 127.0.0.1  --proxy-config proxy.config.json --port $PORT &
+        echo "building [$org] backend..." 
+        pushd backend/$org
+
+        rm package-lock.json
+        rm -rf node_modules/
+        npm install
+        npm run build
+
         popd
         echo "done..."
     done
@@ -33,8 +46,8 @@ buildFrontend() {
 CMD=$1
 echo "./build.sh $CMD"
 if [ "$CMD" == "all" ]; then
-    buildBackend
     buildFrontend
+    buildBackend
 elif [ "$CMD" == "backend" ]; then
     buildBackend
 elif [ "$CMD" == "frontend" ]; then
