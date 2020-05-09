@@ -103,21 +103,21 @@ export class FabricClient {
     async getAllGoodsInfo(username: string) {
         await this.checkIdentity(username);
         const contract = await this.getContract(username);
-        const response = await contract.submitTransaction('getAllGoodsInfo');
+        const response = await contract.evaluateTransaction('getAllGoodsInfo');
         return response;
     }
 
     async getGoodsInfo(username: string, id: string) {
         await this.checkIdentity(username);
         const contract = await this.getContract(username);
-        const response = await contract.submitTransaction('getGoodsInfo', id);
+        const response = await contract.evaluateTransaction('getGoodsInfo', id);
         return response;
     }
 
     async getGoodsHistory(username: string, id: string) {
         await this.checkIdentity(username);
         const contract = await this.getContract(username);
-        const response = await contract.submitTransaction('getGoodsHistory', id);
+        const response = await contract.evaluateTransaction('getGoodsHistory', id);
         return response;
     }
 
